@@ -1,5 +1,4 @@
 import createUser from "@/api/controllers/create-user";
-import { DataBase } from "@/api/services/data-base";
 import { NextApiRequest, NextApiResponse } from "next"
 
 export default async function handler(

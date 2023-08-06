@@ -5,7 +5,7 @@ export class TokenUtils {
 
     static generateToken(payload: object){
         if(!this.secret){
-            throw new Error();
+            throw new Error('unable to generate token.');
         }
 
         return jwt.sign(payload, this.secret);
@@ -13,7 +13,7 @@ export class TokenUtils {
 
     static verifyToken(token: string){
         if(!this.secret){
-            throw new Error();
+            throw new Error('unable to verify token.');
         }
 
         return jwt.verify(token, this.secret);

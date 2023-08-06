@@ -44,4 +44,28 @@ export class DataBase {
         }
         await this.prisma.$disconnect();
     }
+
+    public async getUserInfo(id: string){
+        try{
+            const data = await this.prisma.user.findUnique({
+                where: {
+                    id: id
+                },
+                select: {
+                    username: true,
+                    comments: true,
+                    orders: true,
+                    type: true,
+                    password: false
+                }
+            });
+            await this.prisma.$disconnect();
+            return data;
+        }
+        catch(err: any){
+            await this.prisma.$disconnect();
+            throw new Error(err.message);
+        }
+        await this.prisma.$disconnect();
+    }
 }

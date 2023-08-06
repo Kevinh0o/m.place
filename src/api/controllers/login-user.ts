@@ -1,4 +1,3 @@
-import { User } from "../entities/user";
 import { DataBase } from "../services/data-base";
 import { HashUtils } from "../utils/hash-utils";
 import { TokenUtils } from "../utils/token-utils";
@@ -18,6 +17,10 @@ export default async function loginUser(
     const db = new DataBase();
 
     const fetchedUser: any = await db.getUser(username, true);
+
+    if(!fetchedUser){
+        throw new Error('user does not exist.');
+    }
     
     const isPasswordValid = await HashUtils.compareHash(password, fetchedUser.password);
 
