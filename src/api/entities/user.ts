@@ -9,7 +9,7 @@ export class User {
             this.username = username;
         }
         if(password != '' || undefined){
-            this.password = await HashUtils.hash(password);
+            this.password = HashUtils.hash(password);
         }
     }
 }
