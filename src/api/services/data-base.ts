@@ -1,5 +1,6 @@
 import { Brand, PrismaClient } from "@prisma/client";
 import { User } from "../entities/user";
+import { Product } from "../entities/product";
 
 export class DataBase {
     private prisma;
@@ -101,5 +102,28 @@ export class DataBase {
             throw new Error(err.message);
         }
         await this.prisma.$disconnect();
+    }
+
+    public async createProduct(product: Product){
+        try{
+            await this.prisma.product.create({
+                data: {
+                    title: product.title,
+                    description: product.description,
+                    price: product.price,
+                    amount: product.amount,
+                    variations: product.variations,
+                    colors: product.colors,
+                    images: product.images,
+                    brandId: product.brandId
+                }
+            });
+            await this.prisma.$disconnect();
+        }
+        catch(err: any){
+            await this.prisma.$disconnect();
+            throw new Error('Produto já existente.');
+        }
+        this.prisma.$disconnect();
     }
 }
