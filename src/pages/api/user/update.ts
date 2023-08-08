@@ -5,7 +5,7 @@ export default async function handler(
     req: NextApiRequest, res: NextApiResponse
 ){
     if (req.method === 'PUT') {
-        const { product } = req.body;
+        const { username, password } = req.body;
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
 
@@ -14,7 +14,7 @@ export default async function handler(
         }
 
         try{
-            const user = await updateUser(token, product.user, product.password);
+            const user = await updateUser(token, password, username);
             return res.status(200).json({ Msg: 'Usuario atualizado com sucesso' });
         }
         catch(err: any){

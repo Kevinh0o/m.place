@@ -14,7 +14,7 @@ export default async function handler(
 
         try{
             const user = await deleteUser(token);
-            return res.status(200).json({ Msg: user });
+            return res.status(200).json({ Msg: 'Usuario deletado com sucesso!.' });
         }
         catch(err: any){
             return res.status(200).json({ Error: err.message });
