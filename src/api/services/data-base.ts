@@ -70,6 +70,23 @@ export class DataBase {
         await this.prisma.$disconnect();
     }
 
+    public async deleteUser(id: string){
+        try{
+            const data = await this.prisma.user.delete({
+                where: {
+                    id: id
+                }
+            });
+            await this.prisma.$disconnect();
+            return data;
+        }
+        catch(err: any){
+            await this.prisma.$disconnect();
+            throw new Error(err.message);
+        }
+        await this.prisma.$disconnect();
+    }
+
     public async createBrand({ id }: Brand){
         try{
             await this.prisma.brand.create({
