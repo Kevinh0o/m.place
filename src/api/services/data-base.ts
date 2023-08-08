@@ -1,7 +1,6 @@
 import { Brand, PrismaClient } from "@prisma/client";
 import { User } from "../entities/user";
 import { Product } from "../entities/product";
-import deleteProduct from "../controllers/delete-product";
 
 export class DataBase {
     private prisma;
