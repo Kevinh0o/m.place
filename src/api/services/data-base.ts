@@ -190,6 +190,12 @@ export class DataBase {
                         contains: brand
                     }
                 },
+                select: {
+                    title: true,
+                    id: true,
+                    price: true,
+                    discount: true
+                },
                 orderBy: {
                     price: sortby
                 }
@@ -207,12 +213,13 @@ export class DataBase {
     public async getProductInfo(id: any){
         const newId = parseInt(id);
         try{
-            await this.prisma.product.findUnique({
+            const data = await this.prisma.product.findUnique({
                 where: {
                     id: newId
                 }
             });
             await this.prisma.$disconnect();
+            return data;
         }
         catch(err: any){
             await this.prisma.$disconnect();
