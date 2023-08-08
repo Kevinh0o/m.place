@@ -204,6 +204,23 @@ export class DataBase {
         await this.prisma.$disconnect();
     }
 
+    public async getProductInfo(id: any){
+        const newId = parseInt(id);
+        try{
+            await this.prisma.product.findUnique({
+                where: {
+                    id: newId
+                }
+            });
+            await this.prisma.$disconnect();
+        }
+        catch(err: any){
+            await this.prisma.$disconnect();
+            throw new Error('Produto não existe.');
+        }
+        this.prisma.$disconnect();
+    }
+
     public async updateProduct(product: Product, id: any){
         const newId = parseInt(id);
         try{
