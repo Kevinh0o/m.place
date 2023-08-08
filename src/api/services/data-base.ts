@@ -126,4 +126,45 @@ export class DataBase {
         }
         this.prisma.$disconnect();
     }
+
+    public async getProducts(search: string, minPrice: number, maxPrice: number, brand: string, sortby: any, page: any){
+        if(!search){
+            search = '';
+        }
+        if(!brand){
+            brand = '';
+        }
+
+        const skip = ( page - 1)  * 10;
+
+        try{
+            const data = await this.prisma.product.findMany({
+                skip: skip,
+                take: 10,
+                where: {
+                    title: {
+                        contains: search,
+                        mode: 'insensitive',
+                    },
+                    price: {
+                        gt: parseInt(minPrice), //somehow it works just like this
+                        lt: parseInt(maxPrice)
+                    },
+                    brandId: {
+                        contains: brand
+                    }
+                },
+                orderBy: {
+                    price: sortby
+                }
+            });
+            await this.prisma.$disconnect();
+            return data;
+        }
+        catch(err: any){
+            await this.prisma.$disconnect();
+            throw new Error(err.message);
+        }
+        await this.prisma.$disconnect();
+    }
 }

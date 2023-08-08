@@ -1,6 +1,5 @@
 import { Product } from "../entities/product";
 import { DataBase } from "../services/data-base";
-import { ProductType } from "../types/product-types";
 import { TokenUtils } from "../utils/token-utils";
 
 export default async function createProduct(
@@ -18,7 +17,7 @@ export default async function createProduct(
 ){
     const user: any = TokenUtils.verifyToken(token);
 
-    if(user.role != 'USER'){ //mudar pls :p
+    if(user.role != 'ADMIN'){
         throw new Error('Acesso negado.');
     }
 
