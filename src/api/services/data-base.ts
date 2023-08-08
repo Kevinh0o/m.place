@@ -70,6 +70,23 @@ export class DataBase {
         await this.prisma.$disconnect();
     }
 
+    public async updateUser(user: User){
+        try{
+            await this.prisma.user.update({
+                where: {
+                    id: user.id
+                },
+                data: user
+            });
+            await this.prisma.$disconnect();
+        }
+        catch(err: any){
+            await this.prisma.$disconnect();
+            throw new Error('Usuário já existente.');
+        }
+        this.prisma.$disconnect();
+    }
+
     public async deleteUser(id: string){
         try{
             const data = await this.prisma.user.delete({
