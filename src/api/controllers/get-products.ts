@@ -6,12 +6,13 @@ export default async function getProducts(
     maxPrice: number, 
     brand: string, 
     sortby: string,
-    page: number
+    page: number,
+    take: number
 ){
     const db = new DataBase();
 
     try{
-        return await db.getProducts(search, minPrice, maxPrice, brand, sortby, page);
+        return await db.getProducts(search, minPrice, maxPrice, brand, sortby, page, take);
     }
     catch(err: any){
         throw new Error(err.message);

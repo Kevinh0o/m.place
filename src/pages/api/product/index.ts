@@ -8,6 +8,7 @@ type QueryParams = {
     brand?: string;
     sortby?: 'asc' | 'desc';
     page?: number;
+    take?: number
 }
 
 export default async function handler(
@@ -20,11 +21,12 @@ export default async function handler(
             maxPrice = 999999999, 
             brand = '',
             sortby = 'desc',
-            page = 1
+            page = 1,
+            take = 10
         }: QueryParams = req.query;
 
         try{
-            const products = await getProducts(search, minPrice, maxPrice, brand, sortby, page);
+            const products = await getProducts(search, minPrice, maxPrice, brand, sortby, page, take);
             return res.status(200).json({ Products: products });
         }
         catch(err: any){

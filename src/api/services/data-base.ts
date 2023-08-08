@@ -127,7 +127,7 @@ export class DataBase {
         this.prisma.$disconnect();
     }
 
-    public async getProducts(search: string, minPrice: number, maxPrice: number, brand: string, sortby: any, page: any){
+    public async getProducts(search: string, minPrice: number, maxPrice: number, brand: string, sortby: any, page: number, take: number){
         if(!search){
             search = '';
         }
@@ -135,12 +135,13 @@ export class DataBase {
             brand = '';
         }
 
-        const skip = ( page - 1)  * 10;
+        //pagination
+        const skip = ( page - 1 )  * 10;
 
         try{
             const data = await this.prisma.product.findMany({
                 skip: skip,
-                take: 10,
+                take: take,
                 where: {
                     title: {
                         contains: search,
