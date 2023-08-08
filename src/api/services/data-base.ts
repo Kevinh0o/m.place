@@ -1,6 +1,7 @@
 import { Brand, PrismaClient } from "@prisma/client";
 import { User } from "../entities/user";
 import { Product } from "../entities/product";
+import deleteProduct from "../controllers/delete-product";
 
 export class DataBase {
     private prisma;
@@ -211,6 +212,23 @@ export class DataBase {
                     id: newId
                 },
                 data: product
+            });
+            await this.prisma.$disconnect();
+        }
+        catch(err: any){
+            await this.prisma.$disconnect();
+            throw new Error('Produto não existe.');
+        }
+        this.prisma.$disconnect();
+    }
+
+    public async deleteProduct(id: any){
+        const newId = parseInt(id);
+        try{
+            await this.prisma.product.delete({
+                where: {
+                    id: newId
+                }
             });
             await this.prisma.$disconnect();
         }
