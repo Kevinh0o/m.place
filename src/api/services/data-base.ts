@@ -282,4 +282,24 @@ export class DataBase {
             await this.prisma.$disconnect();
         }
     }
+
+    public async updateComment(comment: Comment){
+        try{
+            await this.prisma.comment.update({
+                where: {
+                    userId: comment.id,
+                    productId: comment.productId,
+                },
+                data: {
+                    content: comment.content
+                }
+            });
+        }
+        catch(err: any){
+            throw new Error('Erro no servidor.');
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
 }
