@@ -40,8 +40,8 @@ model Order {
   id        Int     @id @default(autoincrement())
   userId    String
   productId Int
-  product   Product @relation(onDelete: Cascade, fields: [productId], references: [id])
-  User      User    @relation(onDelete: Cascade, fields: [userId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+  User      User    @relation(fields: [userId], references: [id])
 }
 
 model Comment {
