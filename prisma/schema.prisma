@@ -49,8 +49,8 @@ model Comment {
   productId Int
   content   String
   createdAt DateTime @default(now())
-  product   Product  @relation(fields: [productId], references: [id])
-  User      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Brand {

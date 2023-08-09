@@ -93,12 +93,11 @@ export class DataBase {
 
     public async deleteUser(id: string){
         try{
-            const data = await this.prisma.user.delete({
+            const deleteUser = await this.prisma.user.delete({
                 where: {
                     id: id
                 }
-            });
-            return data;
+            })
         }
         catch(err: any){
             throw new Error(err.message);
