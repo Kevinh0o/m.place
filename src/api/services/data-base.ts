@@ -302,4 +302,21 @@ export class DataBase {
             await this.prisma.$disconnect();
         }
     }
+
+    public async deleteComment(comment: Comment){
+        try{
+            await this.prisma.comment.delete({
+                where: {
+                    userId: comment.id,
+                    productId: comment.productId,
+                }
+            });
+        }
+        catch(err: any){
+            throw new Error('Erro no servidor.');
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
 }
