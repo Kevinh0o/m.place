@@ -1,6 +1,7 @@
 import { Brand, PrismaClient } from "@prisma/client";
 import { User } from "../entities/user";
 import { Product } from "../entities/product";
+import { Comment } from "../entities/comment";
 
 export class DataBase {
     private prisma;
@@ -258,6 +259,24 @@ export class DataBase {
         catch(err: any){
             await this.prisma.$disconnect();
             throw new Error('Produto não existe.');
+        }
+        this.prisma.$disconnect();
+    }
+
+    public async createComment(comment: Comment){
+        try{
+            await this.prisma.comment.create({
+                data: {
+                    userId: comment.id,
+                    productId: comment.productId,
+                    content: comment.content
+                }
+            });
+            await this.prisma.$disconnect();
+        }
+        catch(err: any){
+            await this.prisma.$disconnect();
+            throw new Error('Comentario já existente.');
         }
         this.prisma.$disconnect();
     }
