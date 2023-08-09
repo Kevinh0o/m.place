@@ -17,14 +17,14 @@ export class DataBase {
                     username: user.username,
                     password: user.password
                 }
-            });
-            await this.prisma.$disconnect();
+            })
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error('Usuário já existente.');
         }
-        this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async getUser(user: string, getPassword: boolean){
@@ -40,14 +40,14 @@ export class DataBase {
                     password: getPassword
                 }
             });
-            await this.prisma.$disconnect();
             return data;
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error(err.message);
         }
-        await this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async getUserInfo(id: string){
@@ -64,14 +64,14 @@ export class DataBase {
                     password: false
                 }
             });
-            await this.prisma.$disconnect();
             return data;
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error(err.message);
         }
-        await this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async updateUser(user: User){
@@ -82,13 +82,13 @@ export class DataBase {
                 },
                 data: user
             });
-            await this.prisma.$disconnect();
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error('Usuário já existente.');
         }
-        this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async deleteUser(id: string){
@@ -98,14 +98,14 @@ export class DataBase {
                     id: id
                 }
             });
-            await this.prisma.$disconnect();
             return data;
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error(err.message);
         }
-        await this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async createBrand({ id }: Brand){
@@ -115,13 +115,13 @@ export class DataBase {
                     id: id
                 }
             });
-            await this.prisma.$disconnect();
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error('Marca já existente.');
         }
-        this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async getBrands(){
@@ -132,14 +132,14 @@ export class DataBase {
                     Products: false
                 }
             });
-            await this.prisma.$disconnect();
             return data;
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error(err.message);
         }
-        await this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async createProduct(product: Product){
@@ -156,13 +156,13 @@ export class DataBase {
                     brandId: product.brandId
                 }
             });
-            await this.prisma.$disconnect();
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error('Produto já existente.');
         }
-        this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async getProducts(search: string, minPrice: number, maxPrice: number, brand: string, sortby: any, page: number, take: number){
@@ -203,14 +203,14 @@ export class DataBase {
                     price: sortby
                 }
             });
-            await this.prisma.$disconnect();
             return data;
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error(err.message);
         }
-        await this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async getProductInfo(id: any){
@@ -221,14 +221,14 @@ export class DataBase {
                     id: newId
                 }
             });
-            await this.prisma.$disconnect();
             return data;
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error('Produto não existe.');
         }
-        this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async updateProduct(product: Product, id: any){
@@ -240,13 +240,13 @@ export class DataBase {
                 },
                 data: product
             });
-            await this.prisma.$disconnect();
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error('Produto não existe.');
         }
-        this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async deleteProduct(id: any){
@@ -257,13 +257,13 @@ export class DataBase {
                     id: newId
                 }
             });
-            await this.prisma.$disconnect();
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error('Produto não existe.');
         }
-        this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 
     public async createComment(comment: Comment){
@@ -275,12 +275,12 @@ export class DataBase {
                     content: comment.content
                 }
             });
-            await this.prisma.$disconnect();
         }
         catch(err: any){
-            await this.prisma.$disconnect();
             throw new Error('Comentario já existente.');
         }
-        this.prisma.$disconnect();
+        finally{
+            await this.prisma.$disconnect();
+        }
     }
 }
