@@ -13,7 +13,10 @@ export class DataBase {
     public async createUser(user: User){
         try{
             await this.prisma.user.create({
-                data: user
+                data: {
+                    username: user.username,
+                    password: user.password
+                }
             });
             await this.prisma.$disconnect();
         }
