@@ -9,7 +9,7 @@ type Props = {
 export default function Icon({ alt, src, size }: Props) {
 
     const sizes = {
-        sm: { height: 24, width: 24 },
+        sm: { height: 20, width: 20 },
         md: { height: 30, width: 30 },
         lg: { height: 40, width: 40 }
     };

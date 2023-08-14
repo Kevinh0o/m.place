@@ -1,6 +1,4 @@
-import DropDown from "@/client/components/drop-down"
-import Header from "@/client/components/header"
-import HeaderContextProvider from "@/client/contexts/header-context"
+import Header from "@/client/components/header/header"
 
 type Props = {
   children: React.ReactNode
@@ -9,10 +7,7 @@ type Props = {
 export default function marketLayout({ children }: Props) {
   return (
     <div>
-        <HeaderContextProvider>
-          <Header/>
-          <DropDown/>
-        </HeaderContextProvider>
+        <Header/>
         {children}
     </div>
   )

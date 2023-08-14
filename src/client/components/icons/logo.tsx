@@ -6,8 +6,8 @@ type Props = {
 export default function Logo() {
 
     return (
-        <Link href='/'>
-            <h1 className="text-xl font-bold text-center w-1/3">
+        <Link href='/' className="w-auto h-full flex items-center justify-center p-2">
+            <h1 className="text-xl font-bold text-center">
                 m.
             </h1>
         </Link>
