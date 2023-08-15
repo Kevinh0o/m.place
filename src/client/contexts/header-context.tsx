@@ -6,29 +6,22 @@ type Props = {
 }
 
 type ContextProps = {
-    setCategory: any
-    category: 'store' | 'smartphone' | undefined;
-    dropDownVisibility: boolean;
-    setVisibilityOfDropdown: any;
+    setVisibilityOfSearchBar: any;
+    visibility: boolean;
 }
 
 export const HeaderContext = createContext<ContextProps>({
-    setVisibilityOfDropdown: (value: boolean) => {},
-    setCategory: (value: string) => {},
-    dropDownVisibility: false,
-    category: undefined
+    setVisibilityOfSearchBar: (value: boolean) => {},
+    visibility: false
 });
 
 export default function HeaderContextProvider({ children }: Props){
-    const [dropDownVisibility, setVisibilityOfDropdown] = useState(false);
-    const [category, setCategory] = useState(undefined);
+    const [visibility, setVisibilityOfSearchBar] = useState(false);
 
     return(
         <HeaderContext.Provider value={{
-            setVisibilityOfDropdown,
-            dropDownVisibility,
-            setCategory,
-            category
+            setVisibilityOfSearchBar,
+            visibility
         }}>
             {children}
         </HeaderContext.Provider>
