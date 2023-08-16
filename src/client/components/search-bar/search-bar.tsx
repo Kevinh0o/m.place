@@ -13,7 +13,7 @@ export default function SearchBar() {
                 <input
                 type="text"
                 placeholder="Digite o nome de um produto."
-                className="w-96 h-12 z-50 bg-white rounded-md p-3 fixed top-1/4"/>
+                className="w-96 h-12 z-50 bg-white rounded-md p-3 fixed top-1/4 border"/>
             </div>
         )
     }

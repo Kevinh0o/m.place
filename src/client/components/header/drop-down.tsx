@@ -11,7 +11,7 @@ export default function DropDown({ children, isVisible }: Props) {
         <AnimatePresence>
             {isVisible &&
                 <motion.nav className="bg-gray-50 h-auto w-1/2 p-4 rounded-xl 
-                grid grid-cols-2 gap-2 mt-2"
+                grid grid-cols-2 gap-2 mt-2 shadow-lg"
                 animate={{ opacity: 1 }}
                 initial={{ opacity: 0 }}
                 exit={{ opacity: 0 }}
