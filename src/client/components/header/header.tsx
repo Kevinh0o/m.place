@@ -27,8 +27,8 @@ export default function Header() {
                     Produtos
                 </Item>
                 <SearchIcon click={setVisibilityOfSearchBar}/>
-                <Icon src="./shopping-bag.svg" alt="Icone de carrinho" size="sm"/>
-                <Icon src="./profile.svg" alt="Icone de perfil" size="sm"/>
+                <Icon src="/shopping-bag.svg" alt="Icone de carrinho" size="sm"/>
+                <Icon src="/profile.svg" alt="Icone de perfil" size="sm"/>
             </Container>
             <DropDown isVisible={isVisible}>
                 <DropDownItem image="" title="Smartphones"/>

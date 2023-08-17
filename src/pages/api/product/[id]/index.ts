@@ -13,7 +13,7 @@ export default async function handler(
 
         try{
             const newProduct = await getProductInfo(id);
-            return res.status(200).json({ Product: newProduct });
+            return res.status(200).json( newProduct );
         }
         catch(err: any){
             return res.status(200).json({ Error: err.message });

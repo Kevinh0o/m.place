@@ -1,7 +1,10 @@
+'use client';
 import Footer from "@/client/components/footer/footer"
 import Header from "@/client/components/header/header"
 import SearchBar from "@/client/components/search-bar/search-bar"
 import HeaderContextProvider from "@/client/contexts/header-context"
+import { queryClient } from "@/client/utils/query-client"
+import { QueryClientProvider } from "react-query"
 
 type Props = {
   children: React.ReactNode
@@ -10,12 +13,14 @@ type Props = {
 export default function marketLayout({ children }: Props) {
   return (
     <div className="bg-gray-200">
+      <QueryClientProvider client={queryClient}>
         <HeaderContextProvider>
           <SearchBar/>
           <Header/>
         </HeaderContextProvider>
         {children}
         <Footer/>
+      </QueryClientProvider>
     </div>
   )
 }
