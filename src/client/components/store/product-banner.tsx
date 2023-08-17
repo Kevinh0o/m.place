@@ -23,7 +23,7 @@ export default function ProductBanner({
   return (
         <div className='basis-full md:basis-1/2 h-96 rounded-md'
         style={{ color: textColor, backgroundColor: color}}>
-         <div className="h-1/3">
+         <div className="h-0 relative top-2">
             <h1 className="font-bold text-xl text-center">
               {title} 
             </h1>
@@ -36,7 +36,7 @@ export default function ProductBanner({
               </p>
             </Link>
           </div>
-          <div className="h-2/3">
+          <div className="h-full">
             {children}
           </div>
         </div>

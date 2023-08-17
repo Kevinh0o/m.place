@@ -21,9 +21,9 @@ export default function ProductBannerWide({
   children
 }: Props) {
   return (
-        <div className='w-full h-1/2 rounded-md flex flex-col
-        items-center p-4' style={{ color: textColor, backgroundColor: color}}>
-          <div className="h-1/3">
+        <div className='w-full rounded-md flex flex-col
+        items-center h-[600px]' style={{ color: textColor, backgroundColor: color}}>
+          <div className="h-0 relative top-4">
             <h1 className="font-bold text-3xl text-center">
               {title} 
             </h1>
@@ -36,7 +36,7 @@ export default function ProductBannerWide({
               </p>
             </Link>
           </div>
-          <div className="h-2/3">
+          <div className="h-full">
             {children}
           </div>
         </div>
