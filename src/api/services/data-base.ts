@@ -265,6 +265,34 @@ export class DataBase {
         }
     }
 
+    public async getComments(productId: number, page: number, take: number){
+
+        //pagination
+        const skip = ( page - 1 )  * 10;
+
+        try{
+            const data = await this.prisma.comment.findMany({
+                skip: skip,
+                take: take,
+                where: {
+                    productId: {
+                        equals: productId
+                    },
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            });
+            return data;
+        }
+        catch(err: any){
+            throw new Error(err.message);
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
+
     public async createComment(comment: Comment){
         try{
             await this.prisma.comment.create({
