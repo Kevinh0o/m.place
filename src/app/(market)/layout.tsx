@@ -3,6 +3,7 @@ import Footer from "@/client/components/footer/footer"
 import Header from "@/client/components/header/header"
 import SearchBar from "@/client/components/search-bar/search-bar"
 import HeaderContextProvider from "@/client/contexts/header-context"
+import FilterContextProvider from "@/client/contexts/product-filter";
 import { queryClient } from "@/client/utils/query-client"
 import { QueryClientProvider } from "react-query"
 
@@ -18,7 +19,9 @@ export default function marketLayout({ children }: Props) {
           <SearchBar/>
           <Header/>
         </HeaderContextProvider>
-        {children}
+        <FilterContextProvider>
+          {children}
+        </FilterContextProvider>
         <Footer/>
       </QueryClientProvider>
     </div>
