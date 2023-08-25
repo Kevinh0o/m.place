@@ -1,27 +1,50 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "../input/button"
 import { useRouter } from "next/navigation";
+import { FilterContext } from "@/client/contexts/product-filter";
+import { useSearchParams } from 'next/navigation'
 
 type Props = {
 }
 
 export default function FilterSelector() {
-    const [maxPrice, setMaxPrice] = useState<number>(1000);
-    const [minPrice, setMinPrice] = useState<number>(1);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    
+    const maxPriceQuery = searchParams.get('maxPrice') || 1;
+    const minPriceQuery = searchParams.get('minPrice') || 0;
+    const sortbyQuery = searchParams.get('sortby') || 'desc';
+    const brandQuery = searchParams.get('brand') || '';
 
-    const maxPriceHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMaxPrice(parseInt(e.target.value));
-    }
+    const {
+        maxPrice,
+        minPrice,
+        setMaxPrice,
+        setMinPrice,
+        sortby,
+        setOrder,
+        brand,
+        setBrand,
+    } = useContext(FilterContext);
 
-    const minPriceHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMinPrice(parseInt(e.target.value));
-    }
+    useEffect(() => {
+        setMaxPrice(maxPriceQuery);
+        setMinPrice(minPriceQuery);
+        setOrder(sortbyQuery);
+        setBrand(brandQuery);
+    },[searchParams]);
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        router.push('/products?search=&minPrice=0&maxPrice=10000&brand=&sortby=desc&page=1');
+        
+        router.push(
+            '/products?' + 
+            'maxPrice=' + maxPrice + 
+            '&minPrice=' + minPrice + 
+            '&sortby=' + sortby + 
+            '&brand=' + brand,
+        )
     }
 
     return (
@@ -31,7 +54,14 @@ export default function FilterSelector() {
                 <p> Ordem: </p>
                 <div className="border rounded-md flex p-1 justify-around">
                     <div className="h-full w-1/2 flex">
-                        <input id="cres" name="order" type="radio" className="peer w-0 h-0"/>
+                        <input 
+                            id="cres"
+                            checked={sortby == 'asc'}
+                            onChange={() => setOrder('asc')}
+                            name="order" 
+                            type="radio"
+                            className="peer w-0 h-0"
+                        />
                         <label htmlFor="cres" className="h-full w-full peer-checked:font-semibold
                         cursor-pointer flex justify-center items center border-r"> 
                             Crescente 
@@ -39,7 +69,14 @@ export default function FilterSelector() {
                     </div>
 
                     <div className="h-full w-1/2 flex">
-                        <input id="desc" name="order" type="radio" className="peer w-0 h-0"/>
+                        <input 
+                            id="desc"
+                            checked={sortby == 'desc'}
+                            onChange={() => setOrder('desc')}
+                            name="order" 
+                            type="radio" 
+                            className="peer w-0 h-0"
+                        />
                         <label htmlFor="desc" className="h-full w-full peer-checked:font-semibold
                         cursor-pointer flex justify-center items center border-l">
                             Descresente 
@@ -52,7 +89,7 @@ export default function FilterSelector() {
                 <div>
                     <label className="w-full text-sm"> Max: R$ {maxPrice} </label>
                     <input type="range"
-                        onChange={maxPriceHandler}
+                        onChange={(e)=>setMaxPrice(parseInt(e.target.value))}
                         defaultValue={maxPrice}
                         max={10000}
                         min={minPrice}
@@ -62,9 +99,8 @@ export default function FilterSelector() {
                 <div>
                     <label className="w-full text-sm"> Min: R$ {minPrice} </label>
                     <input type="range"
-                        onChange={minPriceHandler}
+                        onChange={(e)=>setMinPrice(parseInt(e.target.value))}
                         defaultValue={minPrice}
-                        maxLength={1000000}
                         max={maxPrice}
                         min={0}
                         className="border rounded-md w-full p-1 px-2 text-sm">
@@ -74,11 +110,23 @@ export default function FilterSelector() {
             <div>
                 <p> Marca: </p>
                 <div>
-                    <input type="radio" name="brand" id="apple" className="border rounded-md"/>
+                    <input 
+                        type="radio"
+                        checked={brand == 'apple'}
+                        onChange={() => setBrand('apple')}
+                        name="brand"
+                        id="apple"
+                        className="border rounded-md"/>
                     <label htmlFor="apple"> Apple </label>
                 </div>
                 <div>
-                    <input type="radio" name="brand" id="samsung" className="border rounded-md"/>
+                    <input 
+                        type="radio"
+                        checked={brand == 'samsung'}
+                        onChange={() => setBrand('samsung')}
+                        name="brand"
+                        id="samsung"
+                        className="border rounded-md"/>
                     <label htmlFor="samsung"> Samsumg </label>
                 </div>
             </div>
