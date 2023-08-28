@@ -10,8 +10,10 @@ export default function Products() {
                 <FilterSelector/>
                 <div className="w-full rounded-lg gap-2 flex flex-wrap">
                     <Product/>
-                    <Pagination/>
                 </div>
+            </div>
+            <div className="h-full flex items-center justify-center">
+                <Pagination/>
             </div>
         </div>
     )

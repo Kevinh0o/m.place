@@ -9,7 +9,6 @@ type Props = {
 
 export default function Pagination() {
     const router = useRouter();
-    const currentUrl = window.location.href;
     const searchParams = useSearchParams();
     const pageQuery = searchParams?.get('page') || 1;
 
@@ -56,17 +55,27 @@ export default function Pagination() {
     }
 
     return (
-        <div>
-            pag
+        <div className="flex gap-4 p-5">
+            Página
             {totalPages.map((page, index)=>{
+                let style = {
+                    opacity: 0.5
+                }
+
+                if(page == pageQuery){
+                    style.opacity = 1;
+                }
+
                 return(
-                    <div key={page}>
-                        <button
-                            onClick={()=>handleSubmit(page)}
-                        >
-                            {index + 1}
-                        </button>
-                    </div>
+                    <button
+                        key={page}
+                        onClick={()=>handleSubmit(page)}
+                        className="bg-purple-600 text-sm text-white rounded-md
+                        h-6 w-6 flex justify-center items-center]"
+                        style={style}
+                    >
+                        {index + 1}
+                    </button>
                 )
             })}
         </div>
