@@ -1,4 +1,5 @@
 import FilterSelector from "@/client/components/store/filter-selector";
+import Pagination from "@/client/components/store/pagination";
 import Product from "@/client/components/store/product";
 
 export default function Products() {
@@ -9,6 +10,7 @@ export default function Products() {
                 <FilterSelector/>
                 <div className="w-full rounded-lg gap-2 flex flex-wrap">
                     <Product/>
+                    <Pagination/>
                 </div>
             </div>
         </div>

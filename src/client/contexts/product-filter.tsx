@@ -16,6 +16,8 @@ type ContextProps = {
     setBrand: any;
     search: string;
     setSearch: any;
+    page: number;
+    setPage: any;
 }
 
 export const FilterContext = createContext<ContextProps>({
@@ -29,6 +31,8 @@ export const FilterContext = createContext<ContextProps>({
     setBrand: (value: string) => {},
     search: '',
     setSearch: (value: string) => {},
+    page: 1,
+    setPage: (value: number) => {}
 });
 
 export default function FilterContextProvider({ children }: Props){
@@ -37,6 +41,7 @@ export default function FilterContextProvider({ children }: Props){
     const [maxPrice, setMaxPrice] = useState(1);
     const [brand, setBrand] = useState('');
     const [search, setSearch] = useState('');
+    const [page, setPage] = useState(1);
 
     return(
         <FilterContext.Provider value={{
@@ -49,7 +54,9 @@ export default function FilterContextProvider({ children }: Props){
             brand,
             setBrand,
             search,
-            setSearch
+            setSearch,
+            page,
+            setPage
         }}>
             {children}
         </FilterContext.Provider>

@@ -12,10 +12,11 @@ export default function FilterSelector() {
     const router = useRouter();
     const searchParams = useSearchParams();
     
-    const maxPriceQuery = searchParams.get('maxPrice') || 1;
-    const minPriceQuery = searchParams.get('minPrice') || 0;
-    const sortbyQuery = searchParams.get('sortby') || 'desc';
-    const brandQuery = searchParams.get('brand') || '';
+    const maxPriceQuery = searchParams?.get('maxPrice') || 1;
+    const minPriceQuery = searchParams?.get('minPrice') || 0;
+    const sortbyQuery = searchParams?.get('sortby') || 'desc';
+    const brandQuery = searchParams?.get('brand') || '';
+    const searchQuery = searchParams?.get('search') || '';
 
     const {
         maxPrice,
@@ -26,6 +27,9 @@ export default function FilterSelector() {
         setOrder,
         brand,
         setBrand,
+        search,
+        setSearch,
+        page
     } = useContext(FilterContext);
 
     useEffect(() => {
@@ -33,24 +37,39 @@ export default function FilterSelector() {
         setMinPrice(minPriceQuery);
         setOrder(sortbyQuery);
         setBrand(brandQuery);
+        setSearch(searchQuery);
     },[searchParams]);
+
+    const params =
+        '/products?' + 
+        'maxPrice=' + maxPrice + 
+        '&minPrice=' + minPrice + 
+        '&sortby=' + sortby + 
+        '&brand=' + brand +
+        '&search=' + search + 
+        '&page=' + page
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         
-        router.push(
-            '/products?' + 
-            'maxPrice=' + maxPrice + 
-            '&minPrice=' + minPrice + 
-            '&sortby=' + sortby + 
-            '&brand=' + brand,
-        )
+        router.push(params);
     }
 
     return (
         <form className="w-[350px] bg-white rounded-lg p-4 flex flex-col gap-4"
         onSubmit={handleSubmit}>
             <div>
+                {search != '' ?
+                    <div className="mb-2">
+                        <p className="text-sm"> Procurando por: </p>
+                        <div>
+                            <p className="font-semibold"> {search} </p>
+                        </div>
+                    </div>
+                    :
+                    <>
+                    </>
+                }
                 <p> Ordem: </p>
                 <div className="border rounded-md flex p-1 justify-around">
                     <div className="h-full w-1/2 flex">
