@@ -189,14 +189,17 @@ export class DataBase {
                         lt: parseInt(maxPrice)
                     },
                     brandId: {
-                        contains: brand
+                        contains: brand,
+                        mode: 'insensitive',
                     }
                 },
                 select: {
                     title: true,
                     id: true,
                     price: true,
-                    discount: true
+                    discount: true,
+                    images: true,
+                    
                 },
                 orderBy: {
                     price: sortby

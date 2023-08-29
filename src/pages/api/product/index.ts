@@ -27,7 +27,7 @@ export default async function handler(
 
         try{
             const products = await getProducts(search, minPrice, maxPrice, brand, sortby, page, take);
-            return res.status(200).json({ Products: products });
+            return res.status(200).json( products );
         }
         catch(err: any){
             return res.status(200).json({ Error: err.message });
