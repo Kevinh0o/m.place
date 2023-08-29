@@ -5,9 +5,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect } from "react";
 
 type Props = {
+    numberOfProducts: number;
 }
 
-export default function Pagination() {
+export default function Pagination({numberOfProducts}: Props) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const pageQuery = searchParams?.get('page') || 1;
@@ -31,7 +32,10 @@ export default function Pagination() {
         setPage(pageQuery);
     }, [searchParams])
 
-    const totalPages = new Array(10)
+    //Create an array with the number of pages divided by 12 (each page has 12 products)
+    const numberOfPages = Math.ceil(numberOfProducts / 12);
+
+    const totalPages = new Array(numberOfPages)
         .fill(0)
         .map((page: number, index)=>{
             page = index + 1;
@@ -55,7 +59,7 @@ export default function Pagination() {
     }
 
     return (
-        <div className="flex gap-4 p-5">
+        <div className="flex gap-2 p-5">
             Página
             {totalPages.map((page, index)=>{
                 let style = {
