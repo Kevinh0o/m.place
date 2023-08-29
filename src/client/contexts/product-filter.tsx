@@ -25,7 +25,7 @@ export const FilterContext = createContext<ContextProps>({
     setOrder: (value: 'desc' | 'asc') => {},
     minPrice: 0,
     setMinPrice: (value: number | undefined) => {},
-    maxPrice: 1,
+    maxPrice: 10000,
     setMaxPrice: (value: number | undefined) => {},
     brand: '',
     setBrand: (value: string) => {},

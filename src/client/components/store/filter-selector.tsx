@@ -56,7 +56,7 @@ export default function FilterSelector() {
     }
 
     return (
-        <form className="w-[350px] bg-white rounded-lg p-4 flex flex-col gap-4"
+        <form className="w-[450px] bg-white rounded-lg p-4 flex flex-col gap-4"
         onSubmit={handleSubmit}>
             <div>
                 {search != '' ?
@@ -131,22 +131,22 @@ export default function FilterSelector() {
                 <div>
                     <input 
                         type="radio"
-                        checked={brand == 'apple'}
-                        onChange={() => setBrand('apple')}
+                        checked={brand == 'Apple'}
+                        onChange={() => setBrand('Apple')}
                         name="brand"
-                        id="apple"
+                        id="Apple"
                         className="border rounded-md"/>
-                    <label htmlFor="apple"> Apple </label>
+                    <label htmlFor="Apple"> Apple </label>
                 </div>
                 <div>
                     <input 
                         type="radio"
-                        checked={brand == 'samsung'}
-                        onChange={() => setBrand('samsung')}
+                        checked={brand == 'Samsumg'}
+                        onChange={() => setBrand('Samsumg')}
                         name="brand"
-                        id="samsung"
+                        id="Samsumg"
                         className="border rounded-md"/>
-                    <label htmlFor="samsung"> Samsumg </label>
+                    <label htmlFor="Samsumg"> Samsumg </label>
                 </div>
             </div>
             <div>
