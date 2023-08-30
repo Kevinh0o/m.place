@@ -3,10 +3,8 @@ import FilterSelector from "@/client/components/store/filter-selector";
 import Pagination from "@/client/components/store/pagination";
 import Product from "@/client/components/store/product";
 import ProductLoading from "@/client/components/store/product-loading";
-import { FilterContext } from "@/client/contexts/product-filter";
 import useFetch from "@/client/hooks/useFetch";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 type Product = {
     id: string;
@@ -19,12 +17,12 @@ type Product = {
 export default function Products() {
     const searchParams = useSearchParams();
     //Get params of the url
-    const search = searchParams?.get('search');
-    const minPrice = searchParams?.get('minPrice');
-    const maxPrice = searchParams?.get('maxPrice');
-    const brand = searchParams?.get('brand');
-    const sortby = searchParams?.get('sortby');
-    const page = searchParams?.get('page');
+    const search = searchParams?.get('search') || '';
+    const minPrice = searchParams?.get('minPrice') || 0;
+    const maxPrice = searchParams?.get('maxPrice') || 1000000;
+    const brand = searchParams?.get('brand') || '';
+    const sortby = searchParams?.get('sortby') || 'desc';
+    const page = searchParams?.get('page') || 1;
 
     const req = {
         url: '/api/product?' + 

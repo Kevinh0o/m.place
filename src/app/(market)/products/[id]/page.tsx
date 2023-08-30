@@ -58,7 +58,7 @@ export default function ProductPage({ params }: Props) {
                                         <p>100000</p>
                                     </div>
                                 </div>
-                                <Button> Comprar </Button>
+                                <Button type="button"> Comprar </Button>
                             </div>
                         </div>
                     </div>
