@@ -1,8 +1,8 @@
 'use client';
 import useFetch from "@/client/hooks/useFetch";
+import useLocalStorage from "@/client/hooks/useLocalStorage";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 
 type Props = {
     id: string;
@@ -23,6 +23,12 @@ export default function CartItem({ id }: Props) {
         cache: 'product-' + id
     }
     const {data: product, isFetching} = useFetch<Product>(req);
+
+    const { remove } = useLocalStorage('cart');
+
+    function handleCLick(){
+        remove(id);
+    }
 
     return (
         <div className="w-full h-[100px] border p-2 flex justify-between items-center gap-2">
@@ -48,6 +54,12 @@ export default function CartItem({ id }: Props) {
                 }
             </div>
             <div className="w-1/4 h-full flex flex-col items-end justify-end">
+                <button
+                    className="text-red-500 underline text-sm"
+                    onClick={handleCLick}
+                >
+                    Remover
+                </button>
                 <div className="flex line-through text-gray-500 text-sm">
                     <p>R$</p>
                     <p> {product && product.discount} </p>

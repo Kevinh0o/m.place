@@ -1,9 +1,8 @@
 'use client';
 import CartItem from "@/client/components/cart/cart-item";
 import Button from "@/client/components/input/button";
-import Fetch from "@/client/hooks/useFetch";
-import LocalStorage from "@/client/hooks/useLocalStorage";
 import useLocalStorage from "@/client/hooks/useLocalStorage";
+import { empty } from "@prisma/client/runtime/library";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -18,9 +17,8 @@ type Product = {
 }
 
 export default function Cart() {
-
     //TODO prevent duplicates, sum of all items
-        const items =  LocalStorage({ key: 'cart', item: '', method: 'get' });
+    const { data: items }  =  useLocalStorage('cart');
 
     return (
         <div className="p-5 pt-16 bg-gray-200 min-h-screen flex justify-center
