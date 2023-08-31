@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 
 type Props = {
     key: string;
@@ -6,10 +7,26 @@ type Props = {
 }
 
 export default function useLocalStorage({ key, item, method }: Props ){
-    let data;
+    const [data, setData] = useState([]);
+
+    function updateData(){
+        const newData = JSON.parse(localStorage.getItem(key) || '[]')
+        setData(newData)
+    }
+
+    //update data on mount and on storage change
+    useEffect(()=>{
+        updateData();
+
+        window.addEventListener('storage', updateData);
+
+        return () => {
+            window.removeEventListener('storage', updateData);
+        };
+    }, [key])
 
     switch(method){
-        case 'get': data = JSON.parse(localStorage.getItem(key) || '[]');
+        case 'get': return data;
             break;
 
         case 'set': pushItem(key, item);
@@ -20,10 +37,6 @@ export default function useLocalStorage({ key, item, method }: Props ){
 
         case 'clear': localStorage.clear();
             break;
-    }
-
-    if(method === 'get'){
-        return data;
     }
 }
 

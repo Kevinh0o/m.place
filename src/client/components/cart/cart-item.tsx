@@ -2,6 +2,7 @@
 import useFetch from "@/client/hooks/useFetch";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 type Props = {
     id: string;
@@ -21,9 +22,7 @@ export default function CartItem({ id }: Props) {
         url: '/api/product/' + id,
         cache: 'product-' + id
     }
-    const {data: product, isFetching } = useFetch<Product>(req);
-
-    console.log(product)
+    const {data: product, isFetching} = useFetch<Product>(req);
 
     return (
         <div className="w-full h-[100px] border p-2 flex justify-between items-center gap-2">
