@@ -21,6 +21,7 @@ export default function useLocalStorage(key: string){
         parsedItem = parsedItem.filter((index: string) => index !== item);
         
         localStorage.setItem(key, JSON.stringify(parsedItem));
+        window.dispatchEvent(new Event('storage'));
 
         setChanged(changed + 1);
     }
@@ -35,6 +36,7 @@ export default function useLocalStorage(key: string){
             parsedItem.push(item);
             
             localStorage.setItem(key, JSON.stringify(parsedItem));
+            window.dispatchEvent(new Event('storage'));
         }
         
         if(!fetchedItem){

@@ -22,6 +22,7 @@ export default function CartItem({ id }: Props) {
         url: '/api/product/' + id,
         cache: 'product-' + id
     }
+    
     const {data: product, isFetching} = useFetch<Product>(req);
 
     const { remove } = useLocalStorage('cart');
