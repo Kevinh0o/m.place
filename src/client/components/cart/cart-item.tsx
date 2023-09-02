@@ -50,7 +50,7 @@ export default function CartItem({
     return (
         <div className="w-full h-[100px] border p-2 flex justify-between items-center gap-2">
             <div className="border w-[100px] h-full">
-                {product &&
+                {product?.images &&
                     <Image
                         src={product.images[0]}
                         alt={"Imagem do produto" + product.title}
