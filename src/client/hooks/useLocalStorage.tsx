@@ -32,8 +32,10 @@ export default function useLocalStorage(key: string){
         if(fetchedItem){
             //convert to array, push item and set it back to localStorage
             let parsedItem = JSON.parse(fetchedItem);
-            
-            parsedItem.push(item);
+
+            if(!parsedItem.includes(item)){
+                parsedItem.push(item);
+            }
             
             localStorage.setItem(key, JSON.stringify(parsedItem));
             window.dispatchEvent(new Event('storage'));
