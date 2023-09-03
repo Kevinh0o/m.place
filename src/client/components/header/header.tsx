@@ -8,6 +8,7 @@ import Item from "./items";
 import DropDownItem from "./drop-down-item";
 import { HeaderContext } from "@/client/contexts/header-context";
 import SearchIcon from "../icons/search";
+import CartIcon from "../icons/cart-icon";
 
 export default function Header() {
     const [ isVisible, setVisibility ] = useState(false);
@@ -27,7 +28,7 @@ export default function Header() {
                     Produtos
                 </Item>
                 <SearchIcon click={setVisibilityOfSearchBar}/>
-                <Icon src="/shopping-bag.svg" alt="Icone de carrinho" size="sm"/>
+                <CartIcon click={setVisibility}/>
                 <Icon src="/profile.svg" alt="Icone de perfil" size="sm"/>
             </Container>
             <DropDown isVisible={isVisible}>
