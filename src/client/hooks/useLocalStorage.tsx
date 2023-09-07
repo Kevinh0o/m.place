@@ -50,6 +50,10 @@ export default function useLocalStorage(key: string){
 
         setChanged(changed + 1);
     }
+
+    const clear = ()=>{
+        localStorage.removeItem(key)
+    }
     
     //update data on mount and on storage change
     useEffect(()=>{
@@ -62,5 +66,5 @@ export default function useLocalStorage(key: string){
         };
     }, [changed])
 
-    return {data, remove, push};
+    return {data, remove, push, clear};
 }
