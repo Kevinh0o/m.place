@@ -20,22 +20,17 @@ export default function AuthContextProvider({ children }: Props){
     const path = usePathname();
     const router = useRouter();
 
-    //routes that auth users shouldnt need
-    if(
-        path == '/register' ||
-        path == '/login'
-        && user.length >= 1
-    ){
-        router.push('/')
-    }
-
-    //protected routes > NEED authentication
-    if(
-        path == '/user'
-        && user.length == 0
-    ){
-        router.push('/login')
-    }
+    useEffect(()=>{
+        //routes that auth users shouldnt need
+        if(( path == '/register' || path == '/login' ) && user.length > 0){
+            router.push('/')
+        }
+    
+        //protected routes > NEED authentication
+        if(path == '/user' && user.length == 0){
+            router.push('/login')
+        }
+    }, [user, path, router])
 
     return(
         <AuthContext.Provider value={{
