@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 export default function useLocalStorage(key: string){
     const [data, setData] = useState<string[]>([]);
 
-    //make sure remove(), push() are called when localStorage changes without
-    //breaking it
     const [changed, setChanged] = useState(0);
 
     function updateData(){

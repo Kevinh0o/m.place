@@ -9,6 +9,7 @@ type Req = {
 
 export default function usePost({ url, body }: Req){
     const [response, setResponse] = useState<AxiosResponse<any, any>>();
+    const [error, setError] = useState<any>();
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { data: bearerToken } = useLocalStorage('token');
@@ -27,10 +28,11 @@ export default function usePost({ url, body }: Req){
             
             return response;
         }
-        catch(error){
+        catch(error: any){
+            setError(error);
             return error;
         }
     }
 
-    return { post, response }
+    return { post, response, error }
 }

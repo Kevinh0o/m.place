@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import useLocalStorage from "./useLocalStorage";
 import usePost from "./usePost";
 
@@ -7,20 +8,53 @@ type Req = {
 }
 
 export default function useAuth({ username, password }: Req){
-    const { clear, push } = useLocalStorage('token');
+    const { data: userToken, clear, push } = useLocalStorage('token');
+    const [error, setError] = useState<any>();
+    const [response, setResponse] = useState<string>();
+    const [loading, setLoading] = useState(false);
 
     const body = {
         username: username,
         password: password
     }
-        
-    const response = usePost({ url: '/api/auth/login',  body: body });
 
+    const { 
+        post, 
+        response: postResponse, 
+        error: postError 
+    } = usePost({ url: '/api/auth/login',  body: body });
 
-    if(localStorage.length > 0){
-        clear();
+    const authenticate = async() =>{
+        setLoading(true);
+
+        if(userToken.length > 0){
+            clear();
+        }
+
+        try{
+            await post();
+
+        }
+        catch{
+            setError('ocorreu um erro');
+            clear();
+        }
+
+        setLoading(false);
     }
+    
+    useEffect(()=>{
+        if(postError){
+            setError(postError.response.data)
+        }
 
-    //if response == error > do not push, if response > push(); :)
-    push( JSON.stringify(response) );
+        if(postResponse){
+            const parsedResponse = JSON.stringify(postResponse)
+
+            setResponse(parsedResponse)
+            push(parsedResponse);
+        }
+    }, [postResponse, postError, postResponse])
+
+    return { response, error, authenticate, loading }
 }
