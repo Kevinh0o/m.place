@@ -12,7 +12,7 @@ export default async function handler(
             return res.status(200).json({ Msg: login });
         }
         catch(err: any){
-            return res.status(200).json({ Error: err.message });
+            return res.status(404).json('Usuário não existe.');
         }
 
     }
