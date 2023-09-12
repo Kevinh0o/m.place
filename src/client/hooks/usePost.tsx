@@ -9,6 +9,7 @@ type Req = {
 
 export default function usePost({ url, body }: Req){
     const [response, setResponse] = useState<AxiosResponse<any, any>>();
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<any>();
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -22,6 +23,8 @@ export default function usePost({ url, body }: Req){
     }
 
     const post = async()=>{
+        setLoading(true);
+
         try{
             const response = await axios.post(url, JSON.stringify(body), config);
             setResponse(response);
@@ -32,7 +35,10 @@ export default function usePost({ url, body }: Req){
             setError(error);
             return error;
         }
+        finally{
+            setLoading(false);
+        }
     }
 
-    return { post, response, error }
+    return { post, response, error, loading }
 }

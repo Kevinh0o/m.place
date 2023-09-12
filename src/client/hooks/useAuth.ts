@@ -33,14 +33,14 @@ export default function useAuth({ username, password }: Req){
 
         try{
             await post();
-
         }
         catch{
             setError('ocorreu um erro');
             clear();
         }
-
-        setLoading(false);
+        finally{
+            setLoading(false);
+        }
     }
     
     useEffect(()=>{
@@ -48,8 +48,12 @@ export default function useAuth({ username, password }: Req){
             setError(postError.response.data)
         }
 
+        if(!postError){
+            setError(undefined);
+        }
+
         if(postResponse){
-            const parsedResponse = JSON.stringify(postResponse)
+            const parsedResponse = postResponse.data
 
             setResponse(parsedResponse)
             push(parsedResponse);

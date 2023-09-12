@@ -8,11 +8,11 @@ export default async function handler(
         const { username, password } = req.body;
         
         try{
-            const user = await createUser(username, password);
-            return res.status(200).json({ Msg: 'User Created, Success!' });
+            await createUser(username, password);
+            return res.status(200).json('Usuário criado com sucesso.');
         }
         catch(err: any){
-            return res.status(200).json({ Error: err.message });
+            return res.status(409).json(err.message);
         }
 
     }

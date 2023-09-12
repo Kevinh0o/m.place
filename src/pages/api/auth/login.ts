@@ -9,10 +9,10 @@ export default async function handler(
 
         try{
             const login = await loginUser(username, password);
-            return res.status(200).json({ Msg: login });
+            return res.status(200).json(login);
         }
         catch(err: any){
-            return res.status(404).json('Usuário não existe.');
+            return res.status(404).json(err.message);
         }
 
     }
