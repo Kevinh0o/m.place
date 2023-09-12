@@ -19,7 +19,10 @@ export default async function createUser(
         password
     )
 
-    const newUser = await db.createUser(user);
-    
-    return newUser;
+    try{
+        await db.createUser(user);
+    }
+    catch(err: any){
+        throw new Error(err.message);
+    }
 }

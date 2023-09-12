@@ -19,13 +19,13 @@ export default async function loginUser(
     const fetchedUser: any = await db.getUser(username, true);
 
     if(!fetchedUser){
-        throw new Error('user does not exist.');
+        throw new Error('Usuário não existe.');
     }
     
     const isPasswordValid = await HashUtils.compareHash(password, fetchedUser.password);
 
-    if(!isPasswordValid){
-        throw new Error('wrong password');
+    if(isPasswordValid == false){
+        throw new Error('A senha está incorreta.');
     }
 
     const token = TokenUtils.generateToken({

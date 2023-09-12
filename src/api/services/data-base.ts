@@ -1,4 +1,4 @@
-import { Brand, PrismaClient } from "@prisma/client";
+import { Brand, Prisma, PrismaClient } from "@prisma/client";
 import { User } from "../entities/user";
 import { Product } from "../entities/product";
 import { Comment } from "../entities/comment";
@@ -20,7 +20,12 @@ export class DataBase {
             })
         }
         catch(err: any){
-            throw new Error('Usuário já existente.');
+            if(err instanceof Prisma.PrismaClientKnownRequestError){
+                if(err.code === 'P2002'){
+                    throw new Error('Usuário já existente.');
+                }
+            }
+            throw new Error('Erro no servidor.');
         }
         finally{
             await this.prisma.$disconnect();
