@@ -7,7 +7,8 @@ export default function Button({ children, type }: Props) {
 
     return (
         <button type={type} className="bg-purple-600 w-full h-10 rounded-md flex 
-        justify-center items-center text-white">
+        justify-center items-center text-white text-sm hover:bg-purple-500 
+        active:bg-purple-700">
             {children}
         </button>
     )
