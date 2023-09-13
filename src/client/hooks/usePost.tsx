@@ -24,6 +24,7 @@ export default function usePost({ url, body }: Req){
 
     const post = async()=>{
         setLoading(true);
+        clear();
 
         try{
             const response = await axios.post(url, JSON.stringify(body), config);
@@ -40,5 +41,10 @@ export default function usePost({ url, body }: Req){
         }
     }
 
-    return { post, response, error, loading }
+    const clear = () => {
+        setResponse(undefined);
+        setError(undefined);
+    }
+
+    return { post, response, error, loading, clear }
 }
