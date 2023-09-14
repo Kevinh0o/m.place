@@ -9,7 +9,7 @@ export default async function handler(
 
         try{
             const login = await loginUser(username, password);
-            return res.status(200).json(login);
+            return res.status(200).json({message: 'Usuário logado com sucesso.', data: login});
         }
         catch(err: any){
             return res.status(404).json(err.message);

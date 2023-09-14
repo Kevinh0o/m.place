@@ -10,7 +10,7 @@ type Req = {
 export default function useAuth({ username, password }: Req){
     const { data: userToken, clear, push } = useLocalStorage('token');
     const [error, setError] = useState<any>();
-    const [response, setResponse] = useState<string>();
+    const [response, setResponse] = useState();
     const [loading, setLoading] = useState(false);
 
     const body = {
@@ -53,12 +53,12 @@ export default function useAuth({ username, password }: Req){
         }
 
         if(postResponse){
-            const parsedResponse = postResponse.data
+            const parsedResponse = postResponse
 
-            setResponse(parsedResponse)
-            push(parsedResponse);
+            setResponse(parsedResponse.data.message)
+            push(parsedResponse.data.data);
         }
-    }, [postResponse, postError, postResponse])
+    }, [postResponse, postError])
 
     return { response, error, authenticate, loading }
 }
