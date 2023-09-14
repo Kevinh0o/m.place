@@ -45,7 +45,7 @@ export default function TextInput({
             setErrorCount((prev: string[])=>prev.filter((item: string)=>item !== label));
             setError(false);
         }
-    }, [value])
+    }, [value, regex])
 
     return (
         <div>

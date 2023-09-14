@@ -16,6 +16,8 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [passwordConfirmRegex, setPasswordConfirmRegex] = useState<RegExp>();
     const [errorCount, setErrorCount] = useState<string[]>([]);
     const [enabledButton, setEnabledButton] = useState(false);
 
@@ -39,6 +41,12 @@ export default function Register() {
             setEnabledButton(true);
         }
     }, [errorCount])
+
+    //transforms the current state of password into a regex for password confirmation
+    useEffect(()=>{
+        const passwordToRegex = new RegExp(`^${password}$`)
+        setPasswordConfirmRegex(passwordToRegex);
+    }, [password, passwordConfirm, passwordConfirmRegex])
 
     return (
         <div className="bg-gray-200 w-screen h-screen">
@@ -92,7 +100,18 @@ export default function Register() {
                             placeholder="Digite sua senha" 
                             label="Senha"
                             regex={passwordRegex}
-                            errorMessage="A senha precisa nao sei oq"
+                            errorMessage="A senha precisa ter pelo menos 6 caracteres."
+                        />
+                        <TextInput 
+                            type="password"
+                            value={passwordConfirm}
+                            setValue={setPasswordConfirm}
+                            setErrorCount={setErrorCount}
+                            errorCount={errorCount}
+                            placeholder="Digite a senha novamente" 
+                            label="Confirmar Senha"
+                            regex={passwordConfirmRegex}
+                            errorMessage="As senhas precisam ser iguais."
                         />
                     </div>
                     <div className="flex">
