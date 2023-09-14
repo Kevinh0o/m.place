@@ -1,3 +1,5 @@
+import Loading from "../icons/loading-animation";
+
 type Props = {
     children: React.ReactNode;
     type: 'button' | 'submit' | 'reset';
@@ -18,9 +20,7 @@ export default function Button({ children, type, loading, onClick, enabled }: Pr
             active:bg-purple-700 disabled:bg-purple-800"
         >
             {loading &&
-                <p>
-                    loading...
-                </p>
+                <Loading />
             }
 
             {!loading &&
