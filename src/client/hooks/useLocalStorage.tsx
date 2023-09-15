@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 
 export default function useLocalStorage(key: string){
-    const [data, setData] = useState<string[]>([]);
+    const [data, setData] = useState<string[]>();
 
     const [changed, setChanged] = useState(0);
 
     function updateData(){
-        const newData = JSON.parse(localStorage.getItem(key) || '[]')
-        setData(newData)
+        const localStorageData = localStorage.getItem(key);
+
+        if(localStorageData){
+            const newData = JSON.parse(localStorageData);
+            setData(newData);
+        }
     }
     
     const remove = (item: string)=>{

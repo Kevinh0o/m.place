@@ -11,7 +11,7 @@ export default function usePost({ url, body }: Req){
     const [response, setResponse] = useState<AxiosResponse<any, any>>();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<any>();
-
+    
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { data: bearerToken } = useLocalStorage('token');
     

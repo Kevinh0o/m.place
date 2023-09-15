@@ -8,7 +8,7 @@ type Props = {
 }
 
 type ContextProps = {
-    user: string[];
+    user: string[] | undefined;
 }
 
 export const AuthContext = createContext<ContextProps>({
@@ -21,14 +21,16 @@ export default function AuthContextProvider({ children }: Props){
     const router = useRouter();
 
     useEffect(()=>{
-        //routes that auth users shouldnt need
-        if(( path == '/register' || path == '/login' ) && user.length > 0){
-            router.push('/')
-        }
-    
-        //protected routes > NEED authentication
-        if(path == '/user' && user.length == 0){
-            router.push('/login')
+        if(user){
+            //routes that auth users shouldnt need
+            if(( path == '/register' || path == '/login' ) && user.length > 0){
+                router.push('/')
+            }
+        
+            //protected routes > NEED authentication
+            if(path == '/profile' && user.length == 0 ){
+                router.push('/')
+            }
         }
     }, [user, path, router])
 

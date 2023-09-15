@@ -19,7 +19,7 @@ export default function CartIcon({ click }: Props) {
             <Link href='/cart'>
                 <Icon src="/shopping-bag.svg" alt="Icone de carrinho" size="sm"/>
             </Link>
-            {items.length > 0 && 
+            {items && items?.length > 0 &&
                 <motion.div 
                     className="h-0 w-0 relative right-2 bottom-4"
                     animate={{ opacity: 1, y: 0 }}
