@@ -12,6 +12,7 @@ type Props = {
     setValue: (value: string) => void;
     setErrorCount?: any;
     errorCount?: string[];
+    dependencies?: any;
 }
 
 export default function TextInput({
@@ -23,9 +24,30 @@ export default function TextInput({
     value,
     setValue,
     setErrorCount,
-    errorCount
+    errorCount,
+    dependencies
 }: Props) {
     const [error, setError] = useState(false);
+
+    useEffect(()=>{
+        if(dependencies && value != dependencies){
+            //create an array that have label as its key value and represents +1 on the errorArray
+            //also, check if the errorCount already have the label, if it does, don't add it again
+            if(errorCount && !errorCount.includes(label || '')) {
+                setErrorCount((prev: string[]) => [...prev, label]);
+            }
+
+            if(value.length > 0){
+                setError(true);
+            }
+        }
+
+        if(dependencies && value == dependencies){
+            //delete the key value from the errorArray, represents -1 on the errorArray
+            setErrorCount((prev: string[])=>prev.filter((item: string)=>item !== label));
+            setError(false);
+        }
+    }, [dependencies, value])
 
     useEffect(()=>{
         if(regex && !regex.test(value)) {
@@ -45,7 +67,7 @@ export default function TextInput({
             setErrorCount((prev: string[])=>prev.filter((item: string)=>item !== label));
             setError(false);
         }
-    }, [value, regex])
+    }, [value])
 
     return (
         <div>

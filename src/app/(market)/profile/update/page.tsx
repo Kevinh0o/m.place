@@ -14,7 +14,6 @@ export default function Update() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
-    const [passwordConfirmRegex, setPasswordConfirmRegex] = useState<RegExp>();
     const [errorCount, setErrorCount] = useState<string[]>([]);
     const [enabledButton, setEnabledButton] = useState(false);
 
@@ -37,11 +36,6 @@ export default function Update() {
             setEnabledButton(true);
         }
     }, [errorCount])
-
-    useEffect(()=>{
-        const passwordToRegex = new RegExp(`^${password}$`)
-        setPasswordConfirmRegex(passwordToRegex);
-    }, [password, passwordConfirm, passwordConfirmRegex])
 
     return(
         <div className="p-2">
@@ -90,12 +84,12 @@ export default function Update() {
                         <TextInput 
                             type="password"
                             value={passwordConfirm}
+                            dependencies={password}
                             setValue={setPasswordConfirm}
                             setErrorCount={setErrorCount}
                             errorCount={errorCount}
                             placeholder="Digite a senha novamente" 
                             label="Confirmar Senha"
-                            regex={passwordConfirmRegex}
                             errorMessage="As senhas precisam ser iguais."
                         />
                         <Button type="submit" loading={loading} onClick={post} enabled={enabledButton}>
