@@ -1,4 +1,5 @@
 import useFetch from "@/client/hooks/useFetch";
+import Comment from "./comment";
 
 type Props = {
     productId: string;
@@ -32,22 +33,13 @@ export default function Comments({ productId }: Props) {
             </>:
             <div>
                 {comments && comments.map((comment)=>{
-                    const date = new Date(comment.createdAt);
-                    const convertedDate = date.getDate()+ '/' + date.getMonth() + '/' + date.getFullYear();
                     return (
-                        <div
-                        className="bg-white p-2 border m-2 flex flex-col"
-                        key={comment.userId}>
-                            <div className="flex items-end text-xs">
-                                <p className="font-bold"> Enviado por: &nbsp;</p>
-                                <h1>
-                                    {comment.userId}
-                                </h1>
-                                <p className="font-bold"> &nbsp; no dia: {convertedDate} </p>
-                            </div>
-                            <p className="px-5">
-                                {comment.content}
-                            </p>
+                        <div key={comment.userId}>
+                            <Comment
+                                userId={comment.userId} 
+                                date={comment.createdAt}
+                                content={comment.content}
+                            />
                         </div>
                     )
                 })}
