@@ -6,10 +6,10 @@ export class User {
     public id = '';
     
     public async set(username: string, password: string, token?: string){
-        if(username != '' || undefined){
+        if(username != '' || username != undefined){
             this.username = username;
         }
-        if(password != '' || undefined){
+        if(password != '' || password != undefined){
             this.password = HashUtils.hash(password);
         }
         if(token){

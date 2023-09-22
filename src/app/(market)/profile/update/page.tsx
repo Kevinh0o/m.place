@@ -2,7 +2,8 @@
 import Button from "@/client/components/input/button";
 import TextInput from "@/client/components/input/text-input";
 import { ProfileContext } from "@/client/contexts/profile-context";
-import usePost from "@/client/hooks/usePost";
+import usePut from "@/client/hooks/usePut";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 type User = {
@@ -20,10 +21,10 @@ export default function Update() {
     const userRegex = /^[a-zA-Z0-9._%+-]{3,}$/;
     const passwordRegex = /^[a-zA-Z0-9._%+-]{6,}$/;
 
-    const { post, response, error, loading } = usePost({
-        url: 'api/user/update',
+    const { post, response, error, loading } = usePut({
+        url: '/api/user/update',
         body: {
-            username: user,
+            username: username,
             password: password
         }
     });

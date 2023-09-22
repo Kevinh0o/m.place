@@ -23,7 +23,7 @@ export default function ProfileLayout({ children }: Props) {
 
     const {setUser} = useContext(ProfileContext);
 
-    const {data: user, error, isFetching} = useFetch<User>({
+    const {data: user, error, isFetching, refetch} = useFetch<User>({
         url: '/api/user',
         cache: 'user',
         token: token

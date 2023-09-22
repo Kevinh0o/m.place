@@ -11,11 +11,12 @@ export class TokenUtils {
         return jwt.sign(payload, this.secret);
     }
 
-    static async verifyToken(token: string){
+    static verifyToken(token: string){
         if(!this.secret){
             throw new Error('unable to verify token.');
         }
+        const tokenData: any = jwt.verify(token, this.secret);
 
-        return jwt.verify(token, this.secret);
+        return tokenData;
     }
 }

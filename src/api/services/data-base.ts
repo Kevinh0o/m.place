@@ -86,11 +86,14 @@ export class DataBase {
                 where: {
                     id: user.id
                 },
-                data: user
+                data: {
+                    password: user.password,
+                    username: user.username
+                }
             });
         }
         catch(err: any){
-            throw new Error('Usuário já existente.');
+                throw new Error('Usuário já existente.');
         }
         finally{
             await this.prisma.$disconnect();

@@ -37,7 +37,7 @@ export const ProfileContext = createContext<ContextProps>({
     setUser: () => {},
     page: 'profile',
     pageNumber: 1,
-    setPageNumber: () => {}
+    setPageNumber: () => {},
 });
 
 export default function ProfileContextProvider({ children }: Props){

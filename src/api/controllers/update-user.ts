@@ -7,14 +7,25 @@ export default async function deleteUser(
     password: string,
     username: string
 ){
+    if(!username){
+        throw new Error('Usuário inválido.');
+    }
+    if(!password){
+        throw new Error('Senha inválida.');
+    }
     if(!token){
-        throw new Error('invalid token');
+        throw new Error('Token inválido.');
     }
 
     const tokenData: any = TokenUtils.verifyToken(token);
+
+    if(!tokenData.id){
+        throw new Error('Token inválido.');
+    }
     
     const db = new DataBase();
     const user = new User();
+
     user.set(
         username,
         password,

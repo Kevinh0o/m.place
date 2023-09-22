@@ -23,16 +23,16 @@ export default function useFetch<T = unknown>({ url, cache, token }: Req){
     //is async, so it takes some time to get the token, and the first attempt normally
     //fails, also if the server stops working it makes sure that the data is ok.
     const retryConfig = {
-        retry: 3,
-        retryDelay: 2000 //in ms
+        retry: 1,
+        retryDelay: 5000 //in ms
     }
     
-    const { data, isFetching, error } = useQuery<T>(cache, async() =>{
+    const { data, isFetching, error, refetch } = useQuery<T>(cache, async() =>{
 
         const response = await axios.get(url);
 
         return response.data;
     }, retryConfig)
 
-    return {data, isFetching, error}
+    return {data, isFetching, error, refetch}
 }
