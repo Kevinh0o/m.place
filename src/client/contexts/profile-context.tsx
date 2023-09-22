@@ -18,7 +18,7 @@ type User = {
     username: string;
     type: string;
     comments: [Comment];
-    orders: [{}];
+    orders: [Order];
 }
 
 type Comment = {
@@ -26,6 +26,10 @@ type Comment = {
     content: string;
     createdAt: Date;
     productId: string;
+}
+
+type Order = {
+    
 }
 
 export const ProfileContext = createContext<ContextProps>({

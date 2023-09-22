@@ -8,7 +8,7 @@ export default async function getUserInfo(
         throw new Error('invalid token');
     }
 
-    const user: any = TokenUtils.verifyToken(token);
+    const user: any = await TokenUtils.verifyToken(token);
     
     const db = new DataBase();
 

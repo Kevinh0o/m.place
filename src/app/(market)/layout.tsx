@@ -2,6 +2,7 @@
 import Footer from "@/client/components/footer/footer"
 import Header from "@/client/components/header/header"
 import SearchBar from "@/client/components/search-bar/search-bar"
+import AuthContextProvider from "@/client/contexts/auth-context";
 import HeaderContextProvider from "@/client/contexts/header-context"
 import FilterContextProvider from "@/client/contexts/product-filter";
 import ProfileContextProvider from "@/client/contexts/profile-context";
@@ -13,6 +14,7 @@ type Props = {
 export default function marketLayout({ children }: Props) {
   return (
     <div className="bg-gray-200">
+      <AuthContextProvider>
         <HeaderContextProvider>
           <SearchBar/>
           <Header/>
@@ -22,6 +24,7 @@ export default function marketLayout({ children }: Props) {
             {children}
           </ProfileContextProvider>
         </FilterContextProvider>
+      </AuthContextProvider>
         <Footer/>
     </div>
   )

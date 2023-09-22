@@ -62,6 +62,7 @@ export class DataBase {
                     id: id
                 },
                 select: {
+                    id: true,
                     username: true,
                     comments: true,
                     orders: true,

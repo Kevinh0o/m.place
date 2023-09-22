@@ -11,7 +11,7 @@ export class TokenUtils {
         return jwt.sign(payload, this.secret);
     }
 
-    static verifyToken(token: string){
+    static async verifyToken(token: string){
         if(!this.secret){
             throw new Error('unable to verify token.');
         }

@@ -2,6 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react"
 import useLocalStorage from "../hooks/useLocalStorage";
+import axios from "axios";
 
 type Props = {
     children: React.ReactNode;
@@ -16,23 +17,31 @@ export const AuthContext = createContext<ContextProps>({
 });
 
 export default function AuthContextProvider({ children }: Props){
-    const { data: user, remove } = useLocalStorage('token');
+    const [user, setUser] = useState<string[]>();
+
+    const { data: token, remove } = useLocalStorage('token');
+
     const path = usePathname();
     const router = useRouter();
 
     useEffect(()=>{
-        if(user){
+        if(token){
+            setUser(token);
             //routes that auth users shouldnt need
-            if(( path == '/register' || path == '/login' ) && user.length > 0){
+            if(( path == '/register' || path == '/login' ) && token.length > 0){
                 router.push('/')
             }
         
             //protected routes > NEED authentication
-            if(path == '/profile' && user.length == 0 ){
+            if(path == '/profile' && token.length == 0 ){
                 router.push('/')
             }
         }
-    }, [user, path, router])
+
+        //sets the token in the axios header for private data fetching
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        
+    }, [token, path, router])
 
     return(
         <AuthContext.Provider value={{
