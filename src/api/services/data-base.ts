@@ -67,7 +67,7 @@ export class DataBase {
                     orders: true,
                     type: true,
                     password: false
-                }
+                },
             });
             return data;
         }
@@ -349,7 +349,7 @@ export class DataBase {
             });
         }
         catch(err: any){
-            throw new Error('Erro no servidor.');
+            throw new Error('Produto não encontrado');
         }
         finally{
             await this.prisma.$disconnect();
