@@ -1,6 +1,7 @@
 'use client';
 import Navigation from "@/client/components/profile/navigation";
 import { AuthContext } from "@/client/contexts/auth-context";
+import { ProfileContext } from "@/client/contexts/profile-context";
 import useFetch from "@/client/hooks/useFetch";
 import { useContext, useEffect } from "react";
 
@@ -12,13 +13,20 @@ type User = {}
 
 export default function ProfileLayout({ children}: Props) {
     const {user: token} = useContext(AuthContext);
+    const {setUser} = useContext(ProfileContext);
 
     const {data: user, error, isFetching} = useFetch<User>({
         url: '/api/', //api/user
         cache: 'user'
     });
 
-    //layout fetch user data and pass it to the children pages
+    useEffect(()=>{
+        if(user){
+            setUser(user);
+        }
+    }, [user])
+
+    //layout fetch user data and pass it to the children pages X
     //profile => /comments /update /dashboard /orders /logout
     //dashboard => /comments /orders /total sales, etc
 
