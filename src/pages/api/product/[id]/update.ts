@@ -11,21 +11,21 @@ export default async function handler(
         const token = authHeader && authHeader.split(' ')[1];
 
         if(!token){
-            return res.status(200).json({ Error: 'Acesso negado.' });
+            return res.status(403).json('Acesso negado.');
         }
 
         if(!id){
-            return res.status(200).json({ Error: 'Produto não encontrado.' });
+            return res.status(404).json('Produto não encontrado.');
         }
 
         try{
             const newProduct = await updateProduct(token, product, id);
-            return res.status(200).json({ Msg: 'produto atualizado com sucesso' });
+            return res.status(200).json('produto atualizado com sucesso');
         }
         catch(err: any){
-            return res.status(200).json({ Error: err.message });
+            return res.status(500).json(err.message);
         }
 
     }
-    return res.status(400).json({ Error: 'Bad request.' });
+    return res.status(400).json('Bad request.');
 }

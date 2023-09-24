@@ -10,17 +10,17 @@ export default async function handler(
         const token = authHeader && authHeader.split(' ')[1];
 
         if(!token){
-            return res.status(200).json({ Error: 'Acesso negado.' });
+            return res.status(403).json('Acesso negado.');
         }
 
         try{
             const newBrand = await createBrand(brand, token);
-            return res.status(200).json({ Msg: 'marca registrada com nome de:' });
+            return res.status(200).json('marca registrada com nome de:');
         }
         catch(err: any){
-            return res.status(200).json({ Error: err.message });
+            return res.status(500).json(err.message);
         }
 
     }
-    return res.status(400).json({ Error: 'Bad request.' });
+    return res.status(400).json('Bad request.');
 }

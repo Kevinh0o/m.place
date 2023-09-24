@@ -8,7 +8,7 @@ export default async function handler(
         const { id } = req.query
 
         if(!id){
-            return res.status(200).json({ Error: 'Produto não encontrado.' });
+            return res.status(404).json('Produto não encontrado.');
         }
 
         try{
@@ -16,9 +16,9 @@ export default async function handler(
             return res.status(200).json( newProduct );
         }
         catch(err: any){
-            return res.status(200).json({ Error: err.message });
+            return res.status(500).json(err.message);
         }
 
     }
-    return res.status(400).json({ Error: 'Bad request.' });
+    return res.status(400).json('Bad request.');
 }

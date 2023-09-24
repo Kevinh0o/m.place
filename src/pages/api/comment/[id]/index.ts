@@ -8,7 +8,7 @@ export default async function handler(
         const { id, page, take } = req.query
 
         if(!id){
-            return res.status(200).json({ Error: 'Comentario não encontrado.' });
+            return res.status(404).json('Comentario não encontrado.');
         }
 
         const convertedId = parseInt(id as string);
@@ -17,12 +17,12 @@ export default async function handler(
 
         try{
             const comments = await getComments(convertedId, convertedPage, convertedTake);
-            return res.status(200).json( comments );
+            return res.status(200).json(comments);
         }
         catch(err: any){
-            return res.status(200).json({ Error: err.message });
+            return res.status(500).json(err.message);
         }
 
     }
-    return res.status(400).json({ Error: 'Bad request.' });
+    return res.status(400).json('Bad request.');
 }
