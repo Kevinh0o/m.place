@@ -4,7 +4,7 @@ type Props = {
 
 export default function Container({ children }: Props) {
     return (
-        <div className="bg-white border border-gray-300 p-1 w-auto h-full 
+        <div className="bg-white border border-gray-300 px-2 w-auto h-full 
         flex items-center justify-center rounded-lg shadow-md">
             {children}
         </div>
