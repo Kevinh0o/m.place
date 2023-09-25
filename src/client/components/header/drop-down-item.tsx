@@ -14,9 +14,9 @@ type Props = {
 export default function DropDownItem({ src, alt, title, href, setVisibility }: Props) {
     return (
         <Link href={href} onClick={()=>setVisibility(false)}>
-            <div className="hover:bg-gray-100 cursor-pointer p-4 rounded-md
+            <div className="bg-white hover:bg-gray-50 cursor-pointer p-4 rounded-md
             flex border border-gray-300 shadow-sm">
-                <div className="border w-15 h-15 p-1 border-gray-300 rounded-md mr-2 flex
+                <div className="border w-15 h-15 border-gray-300 rounded-md mr-2 flex
                 items-center justify center shadow-sm">
                     <Icon
                         src={src}

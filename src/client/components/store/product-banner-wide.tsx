@@ -21,8 +21,11 @@ export default function ProductBannerWide({
   children
 }: Props) {
   return (
-        <div className='w-full rounded-md flex flex-col
-        items-center h-[600px]' style={{ color: textColor, backgroundColor: color}}>
+        <div 
+          className='w-full rounded-md flex flex-col
+          items-center h-[600px] border border-gray-300 shadow-sm' 
+        style={{ color: textColor, backgroundColor: color}}
+        >
           <div className="h-0 relative top-4">
             <h1 className="font-bold text-3xl text-center">
               {title} 

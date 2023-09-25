@@ -15,7 +15,7 @@ export default function Product({ title, id, price, discount, images }: Props) {
         <Link
             href={'/products/' + id}
             className="w-[230px] h-[265px] bg-white rounded-md flex flex-col justify-between
-            p-1"
+            p-1 border border-gray-300 shadow-sm"
         >
             <Image
                 src={images[0]}

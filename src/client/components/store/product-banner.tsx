@@ -21,8 +21,10 @@ export default function ProductBanner({
 }: Props) {
 
   return (
-        <div className='basis-full md:basis-1/2 h-96 rounded-md'
-        style={{ color: textColor, backgroundColor: color}}>
+        <div 
+          className='basis-full md:basis-1/2 h-96 rounded-md border border-gray-300 shadow-sm'
+          style={{ color: textColor, backgroundColor: color}}
+        >
          <div className="h-0 relative top-2">
             <h1 className="font-bold text-xl text-center">
               {title} 
