@@ -1,5 +1,6 @@
 'use client';
 import LoadingBlack from "@/client/components/icons/loading-animation-black";
+import ButtonDropDown from "@/client/components/mobile/buttons/drop-down-button";
 import Navigation from "@/client/components/profile/navigation";
 import { AuthContext } from "@/client/contexts/auth-context";
 import { ProfileContext } from "@/client/contexts/profile-context";
@@ -36,12 +37,18 @@ export default function ProfileLayout({ children }: Props) {
     }, [isFetching, user])
 
     return(
-        <div className="min-h-screen w-full pt-16 flex">
-            <div className="flex justify-center">
-                <Navigation />
+        <div className="h-screen w-full pt-16 md:flex">
+            <div className="flex px-5">
+                <ButtonDropDown>
+                    <Navigation />
+                </ButtonDropDown>
+                <div className="md:block hidden">
+                    <Navigation />
+                </div>
             </div>
-            <div className="w-3/4 p-5">
-                <div className="w-full h-full bg-white border border-gray-300 rounded-md">
+            <div className="p-5 h-full w-full">
+                <div className="w-full h-full bg-white border border-gray-300 
+                rounded-md">
                     {isFetching ?
                         <LoadingBlack /> 
                         :

@@ -16,7 +16,7 @@ export default function Profile() {
                     Perfil
                 </h1>
             </div>
-            <div className="p-5">
+            <div className="p-5 ">
                 <h2 className="text-lg">
                     Informações básicas
                 </h2>

@@ -43,7 +43,7 @@ export default function Header() {
                 <DropDownItem 
                     src="./apple-icon.svg" 
                     title="Smartphones Apple"
-                    href="/products"
+                    href="/products?maxPrice=10000&minPrice=0&sortby=desc&brand=Apple&search=&page=1"
                     alt="Icone apple"
                     setVisibility={setVisibility}
                 />
