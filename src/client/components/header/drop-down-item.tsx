@@ -10,8 +10,8 @@ type Props = {
 
 export default function DropDownItem({ image, title }: Props) {
     return (
-        <div className="bg-gray-100 hover:bg-gray-200 cursor-pointer p-4 rounded-xl
-        flex">
+        <div className="hover:bg-gray-100 cursor-pointer p-4 rounded-md
+        flex border border-gray-300 shadow-sm">
             <div className="bg-gray-300 w-10 h-10 rounded-md mr-2">
                 <Image
                     src={image}
