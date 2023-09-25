@@ -74,8 +74,8 @@ export default function Pagination({numberOfProducts}: Props) {
                     <button
                         key={page}
                         onClick={()=>handleSubmit(page)}
-                        className="bg-purple-600 text-sm text-white rounded-md
-                        h-6 w-6 flex justify-center items-center]"
+                        className="bg-white text-sm rounded-sm border border-gray-300 shadow-sm
+                        h-6 w-6 flex justify-center items-center] hover:bg-gray-100"
                         style={style}
                     >
                         {index + 1}

@@ -56,7 +56,8 @@ export default function FilterSelector() {
     }
 
     return (
-        <form className="w-[450px] bg-white rounded-lg p-4 flex flex-col gap-4"
+        <form className="w-[350px] bg-white rounded-md p-4 flex flex-col gap-4
+        border border-gray-300 shadow-sm"
         onSubmit={handleSubmit}>
             <div>
                 {search != '' ?
@@ -71,7 +72,8 @@ export default function FilterSelector() {
                     </>
                 }
                 <p> Ordem: </p>
-                <div className="border rounded-md flex p-1 justify-around">
+                <div className="border border-gray-300 rounded-sm flex p-1 
+                justify-around shadow-sm">
                     <div className="h-full w-1/2 flex">
                         <input 
                             id="cres"
@@ -150,7 +152,7 @@ export default function FilterSelector() {
                 </div>
             </div>
             <div>
-                <Button type="submit">
+                <Button type="submit" enabled={true}>
                     Aplicar filtro
                 </Button>
             </div>

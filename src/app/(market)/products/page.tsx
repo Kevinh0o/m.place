@@ -1,4 +1,5 @@
 'use client';
+import ButtonDropDown from "@/client/components/mobile/buttons/drop-down-button";
 import FilterSelector from "@/client/components/store/filter-selector";
 import Pagination from "@/client/components/store/pagination";
 import Product from "@/client/components/store/product";
@@ -39,13 +40,29 @@ export default function Products() {
 
     return (
         <div className="min-h-screen pt-12 bg-gray-200 flex flex-col justify-between 
-        items-center">
-            <div className="h-full max-w-screen-xl p-5
-            flex justify-between items-start gap-2">
-                <FilterSelector/>
-                <div className="w-full rounded-lg gap-2 flex flex-wrap">
+        items-center w-full">
+            <div className="w-full flex flex-col md:flex-row h-full pt-6 gap-2">
+                <div className="px-2">
+                    <ButtonDropDown>
+                        <FilterSelector/>
+                    </ButtonDropDown>
+                </div>
+                <div className="hidden md:block">
+                    <FilterSelector/>
+                </div>
+                <div className="px-1 md:w-max rounded-lg gap-2 flex flex-wrap justify-center
+                md:justify-normal">
                     {isFetching ? 
                         <>
+                            <ProductLoading/>
+                            <ProductLoading/>
+                            <ProductLoading/>
+                            <ProductLoading/>
+                            <ProductLoading/>
+                            <ProductLoading/>
+                            <ProductLoading/>
+                            <ProductLoading/>
+                            <ProductLoading/>
                             <ProductLoading/>
                             <ProductLoading/>
                             <ProductLoading/>
