@@ -359,4 +359,41 @@ export class DataBase {
             await this.prisma.$disconnect();
         }
     }
+
+    public async searchProducts(search: string){
+        if(!search){
+            search = '';
+        }
+
+        try{
+            const data = await this.prisma.product.findMany({
+                take: 10,
+                where: {
+                    title: {
+                        contains: search,
+                        mode: 'insensitive',
+                    },
+                },
+                select: {
+                    title: true,
+                    id: true,
+                    price: true,
+                    discount: true,
+                    images: true,
+                }
+            });
+
+            if(data.length !== 0){
+                return data;
+            }
+
+            throw new Error('Produto não encontrado');
+        }
+        catch(err: any){
+            throw new Error(err.message);
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
 }
