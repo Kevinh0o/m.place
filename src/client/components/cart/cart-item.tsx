@@ -48,8 +48,10 @@ export default function CartItem({
     }, [ , product])
 
     return (
-        <div className="w-full h-[100px] border p-2 flex justify-between items-center gap-2">
-            <div className="border w-[100px] h-full">
+        <div className="w-full h-[100px] border border-gray-300 p-2 flex 
+        justify-between items-center gap-2 rounded-md">
+            <div className="border border-gray-300 rounded-md w-[100px] 
+            h-full p-1">
                 {product?.images &&
                     <Image
                         src={product.images[0]}

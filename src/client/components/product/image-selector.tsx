@@ -15,23 +15,24 @@ export default function ImageSelector() {
     const [selected, setSelected] = useState(array[0]);
 
     return (
-        <div className="h-full p-2 flex">
-            <div className="h-full w-[90%]">
+        <div className="h-full p-5 flex flex-col justify-start items-center">
+            <div className="h-3/4 w-full">
                 <Image 
                     src={selected}
                     alt="iphone"
                     width={1440} 
                     height={640}
-                    className="h-full object-cover overflow-hidden rounded-lg border-2"
+                    className="h-full object-cover overflow-hidden rounded-md border
+                    border-gray-300"
                 />
             </div>
 
-            <div className="flex flex-wrap flex-col p-2 gap-2">
+            <div className="h-1/4 flex gap-2">
                 {array.map((e)=>{
                     return(
                         <div 
                             key={e} 
-                            className="w-[100px] h-[100px] border rounded-lg border-1 cursor-pointer"
+                            className="md:w-[100px] md:h-[100px] h-[50px] w-[50px] border rounded-lg border-1 cursor-pointer"
                             onClick={()=>setSelected(e)}
                         >
                             <Image

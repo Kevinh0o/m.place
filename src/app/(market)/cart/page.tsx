@@ -2,7 +2,6 @@
 import CartItem from "@/client/components/cart/cart-item";
 import Button from "@/client/components/input/button";
 import useLocalStorage from "@/client/hooks/useLocalStorage";
-import { empty } from "@prisma/client/runtime/library";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -21,68 +20,51 @@ export default function Cart() {
     const [discount, setDiscount] = useState(0);
     const [total, setTotal] = useState(0);
 
-    const { data: items, push }  =  useLocalStorage('cart');
+    const { data: items }  =  useLocalStorage('cart');
 
     useEffect(()=>{
         setTotal(price - discount);
     }, [price, discount])
 
-    function handleCLick(){
-        push('1');
-    }
-
     return (
-        <div className="p-5 pt-16 bg-gray-200 min-h-screen flex justify-center
+        <div className="p-5 pt-16 bg-gray-200 h-screen flex justify-center
         gap-2">
-            <div className="w-1/2 min-h-full bg-white p-2 rounded-lg flex flex-col gap-2">
-
-            <button 
-                className="bg-green-600 text-white rounded-md"
-                onClick={handleCLick}
-            >
-                click
-            </button>
-
-                {items && items.map((i: string)=>{
-                    return(
-                        <CartItem 
-                            id={i} 
-                            key={i}
-                            setPriceCounter={setPrice}
-                            priceCounter={price}
-                            setDiscountCounter={setDiscount}
-                            discountCounter={discount}
-                        />
-                    )
-                })}
+            <div className="h-full w-full bg-white rounded-md border border-gray-300
+            shadow-sm overflow-auto">
+                <div className="p-4 gap-2 flex flex-col">
+                    <h1 className="text-xl font-semibold">
+                        Carrinho de compras
+                    </h1>
+                    <div className="flex flex-col gap-2">
+                        {items?.map((item: string, index: number)=>(
+                            <CartItem
+                                key={index}
+                                id={item}
+                                priceCounter={price}
+                                setPriceCounter={setPrice}
+                                discountCounter={discount}
+                                setDiscountCounter={setDiscount}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
-            <div className="w-[350px] bg-white rounded-lg p-4 self-start">
-                <div className="flex justify-between items-end">
-                    <p>subTotal:</p>
-                    <div className="flex">
-                        <p className="text-lg">R$</p>
-                        <p className="text-lg"> { price }</p>
-                    </div>
+            <div className="bg-white fixed w-[300px] rounded-md
+            border border-gray-300 shadow-md bottom-2 p-4 flex flex-col
+            gap-1">
+                <div className="flex justify-between">
+                    <span>Subtotal</span>
+                    <span>R$ {price}</span>
                 </div>
-                {discount > 0 &&
-                    <div className="flex justify-between items-end">
-                        <p> Desconto: </p>
-                        <div className="flex text-emerald-500">
-                            <p className="text-lg">R$ -</p>
-                            <p className="text-lg"> { discount } </p>
-                        </div>
-                    </div>
-                }
-                <div className="flex justify-between items-end">
-                    <p>Total:</p>
-                    <div className="flex">
-                        <p className="text-lg"> R$ </p>
-                        <p className="text-lg"> { total } </p>
-                    </div>
+                <div className="flex justify-between">
+                    <span>Desconto</span>
+                    <span>R$ {discount}</span>
                 </div>
-                <Button 
-                    type="button"
-                >
+                <div className="flex justify-between">
+                    <span>Total</span>
+                    <span>R$ {total}</span>
+                </div>
+                <Button type="submit" enabled={true}>
                     Finalizar compra
                 </Button>
             </div>

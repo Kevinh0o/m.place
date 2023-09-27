@@ -5,6 +5,8 @@ import Comments from "@/client/components/product/comments";
 import ImageSelector from "@/client/components/product/image-selector";
 import Selector from "@/client/components/product/selector";
 import useFetch from "@/client/hooks/useFetch";
+import useLocalStorage from "@/client/hooks/useLocalStorage";
+import { useRouter } from "next/navigation";
 
 type Props = {
     params: {
@@ -13,10 +15,12 @@ type Props = {
 }
 
 type Product = {
+    id: string;
     title: string;
 }
 
 export default function ProductPage({ params }: Props) {
+    const router = useRouter();
     const req = {
         url: '/api/product/' + params.id,
         cache: 'product-' + params.id
@@ -24,59 +28,73 @@ export default function ProductPage({ params }: Props) {
 
     const { data: product, isFetching } = useFetch<Product>(req);
 
+    const { push } = useLocalStorage('cart');
+
+    function handleClick(){
+        if(product){
+            push(product.id);
+            router.push('/cart');
+        }
+    }
+
     return (
-        <div>
-            <div className="h-screen pt-12 bg-gray-200">
-                <div className="h-full w-full flex p-5">
-                    <div className="w-full">
-                        <div className="h-3/4 w-full rounded-lg bg-white p-4">
-                            <div className="text-2xl">
-                                Iphone 14 pro max
-                            </div>
-                            <div className="h-[90%] flex justify-center items-center">
-                                <ImageSelector />
-                            </div>
+        <div className="flex flex-col items-center">
+            <div className="h-screen max-w-screen-xl pt-16">
+                <div className="flex flex-col md:flex-row w-full h-full p-2 gap-1">
+                    <div className="bg-white border border-gray-300 rounded-md h-full md:w-[75%] w-full">
+                        <h1 className="text-lg p-2">
+                            Iphone todos
+                        </h1>
+                        <ImageSelector/>
+                    </div>
+                    <div className="bg-white border border-gray-300 rounded-md h-full md:w-[25%] w-full p-2
+                    flex flex-col justify-between">
+                        <div className="flex flex-col gap-4">
+                            <ColorSelector type="Cor" options={["red", "blue"]}/>
+                            <Selector type="Modelo" options={["128gb", "256gb", "512gb"]}/>
                         </div>
-                        <div className="h-2"/>
-                        <div className="h-1/4 flex gap-2">
-                            <div className="w-1/3 h-full bg-white rounded-lg">
-                                <Selector options={['64gb','128gb','256gb','512gb']} type="Armazenamento"/>
+                        <div className="">
+                            <div className="line-through text-sm text-gray-400">
+                                <span>
+                                    R$
+                                </span>
+                                <span>
+                                    1000,00
+                                </span>
                             </div>
-                            <div className="w-1/3 h-full bg-white rounded-lg">
-                                <ColorSelector options={['blue','red','black','gray']} type="Cores"/>
+                            <div className="text-xl font-bold">
+                                <span>
+                                    R$
+                                </span>
+                                <span className="text-xl font-bold">
+                                    100,00
+                                </span>
                             </div>
-                            <div className="w-1/3 h-full p-3 flex flex-col justify-end items-end
-                            bg-white rounded-lg">
-                                <div/>
-                                <div className=" text-right">
-                                    <div className="flex text-gray-500 line-through text-sm">
-                                        <p>R$</p>
-                                        <p>10000</p>
-                                    </div>
-                                    <div className="flex font-semibold text-lg">
-                                        <p>R$</p>
-                                        <p>100000</p>
-                                    </div>
-                                </div>
-                                <Button type="button"> Comprar </Button>
+                            <div className="text-sm">
+                                <span>
+                                    Em até 12x de R$
+                                </span>
+                                <span className="">
+                                    100,00
+                                </span>
                             </div>
+                            <Button type="submit" enabled={true} onClick={handleClick}>
+                                Adicionar ao carrinho
+                            </Button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="bg-gray-200 p-5">
-                <div className="bg-white rounded-lg p-5">
-                    <h1 className="text-lg font-bold">
-                        Descrição do produto
-                    </h1>
-                    <p className="">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum suscipit expedita nemo sunt! Magni, autem magnam! Laudantium quibusdam harum omnis tenetur. Nesciunt veritatis quam maxime laudantium obcaecati inventore iure praesentium.
-                    </p>
+            <div className="h-screen w-full">
+                <div className="p-2">
+                    <div className="bg-white border border-gray-300 rounded-md">
+                        description
+                    </div>
                 </div>
-            </div>
-            <div className="bg-gray-200 p-5">
-                <div className="bg-white rounded-lg p-5">
-                    <Comments productId={params.id}/>
+                <div className="p-2">
+                    <div className="bg-white border border-gray-300 rounded-md">
+                        <Comments productId={params.id} />
+                    </div>
                 </div>
             </div>
         </div>
