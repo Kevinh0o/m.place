@@ -1,5 +1,4 @@
-import axios, { AxiosResponse } from "axios";
-import useLocalStorage from "./useLocalStorage";
+import axios from "axios";
 import { useState } from "react";
 
 type Req = {
@@ -9,7 +8,7 @@ type Req = {
 
 export default function usePost({ url, body }: Req){
     //Bearer token is declared in the auth-context.tsx
-    const [response, setResponse] = useState<AxiosResponse<any, any>>();
+    const [response, setResponse] = useState<any | any[]>();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<any>();
 
