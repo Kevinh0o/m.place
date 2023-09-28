@@ -5,6 +5,7 @@ import { HeaderContext } from "@/client/contexts/header-context";
 import Product from "../store/product";
 import usePost from "@/client/hooks/usePost";
 import LoadingBlack from "../icons/loading-animation-black";
+import Link from "next/link";
 
 type Product = {
     id: string;
@@ -17,9 +18,10 @@ type Product = {
 export default function SearchBar() {
     const { setVisibilityOfSearchBar, visibility } = useContext(HeaderContext);
     const [search, setSearch] = useState<string>("");
+    const [containerVisibility, setContainerVisibility] = useState<boolean>(false);
 
     //post is just for controlling the request in the useEffect
-    const { response: products, loading, error, post } = usePost({
+    const { response: products, loading, error, post, clear } = usePost({
         url: '/api/search' + '?search=' + search,
         body: { search }
     });
@@ -38,8 +40,13 @@ export default function SearchBar() {
 
     useEffect(() => {
         if(search.length > 3){
-            console.log('pesquisando por'+ ' ' + search)
+            setContainerVisibility(true);
+            console.log('pesquisando por'+ ' ' + search);
             post();
+        }
+        if(search.length < 3){
+            setContainerVisibility(false);
+            clear();
         }
     }, [search])
 
@@ -54,44 +61,51 @@ export default function SearchBar() {
                     border border-gray-300 shadow-sm"
                     onChange={handleChange}
                 />
-                {loading &&
+                {containerVisibility &&
                     <div className="z-50 bg-white rounded-md border border-gray-300 shadow-sm 
-                    fixed bottom-1/4 w-[90%] h-[300px] p-2 flex items-center justify-center">
-                        <LoadingBlack />
-                    </div>
-                }
-                {products &&
-                    <div className="z-50 bg-white rounded-md border border-gray-300 shadow-sm 
-                    fixed bottom-1/4 w-[90%] h-[400px] p-2 flex items-start flex-col justify-between">
-                        <p> Pesquisando por {' '} <span className="font-bold text-lg"> {search} </span> </p>
-                        {
-                            products.data.map((product: Product)=>{
-                                return(
-                                    <div
-                                        key={product.id}
-                                    >
-                                        <Product
-                                            id={product.id}
-                                            title={product.title}
-                                            price={product.price}
-                                            images={product.images}
-                                            discount={product.discount}
-                                        />
-                                    </div>
-                                )
-                            })
+                    fixed bottom-1/4 w-[90%] h-[450px] p-4 flex items-center justify-center">
+                        {loading &&
+                            <LoadingBlack />
                         }
-                        <p className="text-blue-400 font-underline">
-                            ver todos os produtos correspondentes
-                        </p>
-                    </div>
-                }
-                {error &&
-                    <div className="z-50 bg-white rounded-md border border-gray-300 shadow-sm 
-                    fixed bottom-1/4 w-[90%] h-[300px] p-2 flex items-center justify-center">
-                        <p className="text-center text-red-400">
-                            Nenhum produto não nao encontrado.
-                        </p>
+                        {products &&
+                            <div className="w-full h-full flex flex-col justify-between">
+                                <p> Pesquisando por {' '} <span className="font-bold text-lg"> {search} </span> </p>
+                                {
+                                    products.data.map((product: Product)=>{
+                                        return(
+                                            <div
+                                                key={product.id}
+                                                className="flex gap-2 w-full justify-start
+                                                overflow-x-auto"
+                                            >
+                                                <div>
+                                                    <Product
+                                                        id={product.id}
+                                                        title={product.title}
+                                                        price={product.price}
+                                                        images={product.images}
+                                                        discount={product.discount}
+                                                    />
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                <Link 
+                                    href={'/products?search=' + search}
+                                    onClick={()=>setVisibilityOfSearchBar(false)}
+                                >
+                                    <p className="text-center text-blue-400 underline">
+                                         Ver todos os resultados 
+                                    </p>
+                                </Link>
+                            </div>
+                        }
+                        {error &&
+                            <p className="text-center text-red-400">
+                                Nenhum produto não nao encontrado.
+                            </p>
+                        }
                     </div>
                 }
             </div>
