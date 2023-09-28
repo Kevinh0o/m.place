@@ -57,13 +57,13 @@ export default function SearchBar() {
                 <input
                     type="text"
                     placeholder="Digite o nome de um produto."
-                    className="md:w-96 w-[80%] h-12 z-50 bg-white rounded-md p-3 fixed bottom-3/4 
+                    className="md:w-96 w-[80%] h-12 z-50 bg-white rounded-md p-3 fixed top-10
                     border border-gray-300 shadow-sm"
                     onChange={handleChange}
                 />
                 {containerVisibility &&
                     <div className="z-50 bg-white rounded-md border border-gray-300 shadow-sm 
-                    fixed bottom-1/4 w-[90%] h-[450px] p-4 flex items-center justify-center">
+                    fixed top-[25%] w-[90%] h-[450px] p-4 flex items-center justify-center">
                         {loading &&
                             <LoadingBlack />
                         }
