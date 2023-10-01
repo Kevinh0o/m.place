@@ -1,4 +1,4 @@
-import { Brand, Prisma, PrismaClient } from "@prisma/client";
+import { Brand, Order, Prisma, PrismaClient } from "@prisma/client";
 import { User } from "../entities/user";
 import { Product } from "../entities/product";
 import { Comment } from "../entities/comment";
@@ -224,6 +224,26 @@ export class DataBase {
         }
     }
 
+    public async getProductsByIds(ids: number[]){
+
+        try{
+            const data = await this.prisma.product.findMany({
+                where: {
+                    id: {
+                        in: ids
+                    }
+                }
+            });
+            return data;
+        }
+        catch(err: any){
+            throw new Error('Erro ao processar produtos e(ou) produtos não encontrados.');
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
+
     public async getProductInfo(id: any){
         const newId = parseInt(id);
         try{
@@ -391,6 +411,51 @@ export class DataBase {
         }
         catch(err: any){
             throw new Error(err.message);
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
+
+    public async createOrder(userId: string, products: any){
+        let totalPrice = 0;
+        let totalDiscount = 0;
+
+        products.forEach((product: any)=>{
+            totalPrice = product.unit_price * product.quantity + totalPrice;
+            totalDiscount = product.discount * product.quantity + totalDiscount;
+        })
+
+        totalPrice = totalPrice - totalDiscount;
+        console.log(totalPrice)
+
+        try{
+            const newOrder = await  this.prisma.order.create({
+                data: {
+                    userId: userId,
+                    totalPrice: totalPrice
+                }
+            });
+
+            const orderId = newOrder.id;
+
+            
+            //create order items for the new order
+            const updatedItems = await Promise.all(
+                products.map(async (product: any) => {
+
+                    await this.prisma.orderItem.create({
+                        data: {
+                            amount: product.quantity,
+                            productId: product.id,
+                            orderId: orderId, // Associate the item with the orderId
+                        },
+                    });
+                })
+            );
+        }
+        catch(err: any){
+            throw new Error('Erro ao processar pedido.' + err.message);
         }
         finally{
             await this.prisma.$disconnect();

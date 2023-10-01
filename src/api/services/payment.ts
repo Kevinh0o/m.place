@@ -1,9 +1,11 @@
 import mercadopago from 'mercadopago';
 
 type Product = {
+    id: number,
     title: string,
     unit_price: number,
-    quantity: number
+    quantity: number,
+    discount: number
 }
 
 export class Payment{
@@ -13,15 +15,25 @@ export class Payment{
             access_token: process.env.PAYMENT_PRIVATE_KEY || ''
         });
 
+        //map products to mercadopago format
+        const items = products.map((product)=>{
+            return {
+                title: product.title,
+                unit_price: product.unit_price - product.discount,
+                quantity: product.quantity
+            }
+        })
+
         const preference = {
-            items: products,
+            items: items
         }
 
-        mercadopago.preferences.create(preference)
-            .then((response)=>{
-                return response.body.id;
-            }).catch((error: any)=>{
-                throw new Error(error);
-            });
+        try{
+            const order = mercadopago.preferences.create(preference);
+            return order;
+        }
+        catch(err: any){
+            throw new Error('Erro ao criar pedido.');
+        }
     }
 }
