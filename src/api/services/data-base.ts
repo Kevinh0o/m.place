@@ -427,7 +427,6 @@ export class DataBase {
         })
 
         totalPrice = totalPrice - totalDiscount;
-        console.log(totalPrice)
 
         try{
             const newOrder = await  this.prisma.order.create({

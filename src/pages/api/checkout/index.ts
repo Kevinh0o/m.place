@@ -13,6 +13,10 @@ export default async function handler(
             return res.status(403).json('Acesso negado.');
         }
 
+        if(!items){
+            return res.status(400).json('Pedido vazio.');
+        }
+
         try{
             const newOrder = await createOrder(token, items);
             return res.status(200).json(newOrder);

@@ -17,7 +17,7 @@ export default function usePost({ url, body }: Req){
         clear();
 
         try{
-            const response = await axios.post(url, JSON.stringify(body));
+            const response = await axios.post(url, body);
             setResponse(response);
             
             return response;

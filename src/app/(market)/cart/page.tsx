@@ -2,6 +2,8 @@
 import CartItem from "@/client/components/cart/cart-item";
 import Button from "@/client/components/input/button";
 import useLocalStorage from "@/client/hooks/useLocalStorage";
+import usePost from "@/client/hooks/usePost";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -20,7 +22,29 @@ export default function Cart() {
     const [discount, setDiscount] = useState(0);
     const [total, setTotal] = useState(0);
 
+    const router = useRouter();
     const { data: items }  =  useLocalStorage('cart');
+
+    const order = items?.map((item)=>{
+        return {
+            id: parseInt(item),
+            amount: 1,
+        }
+    })
+
+    const { post, loading, response, error } = usePost({
+        url: '/api/checkout',
+        body: {
+            items: order
+        }
+    });
+
+    useEffect(()=>{
+        if(response && response !== undefined){
+            router.push(`/checkout/${response.data.body.id}`);
+        }
+        console.log(response)
+    }, [response, error])
 
     useEffect(()=>{
         setTotal(price - discount);
@@ -35,6 +59,9 @@ export default function Cart() {
                     <h1 className="text-xl font-semibold">
                         Carrinho de compras
                     </h1>
+                    {error && 
+                        <span className="text-red-500 text-center">{error.response.data}</span>
+                    }
                     <div className="flex flex-col gap-2">
                         {items?.map((item: string, index: number)=>(
                             <CartItem
@@ -64,7 +91,12 @@ export default function Cart() {
                     <span>Total</span>
                     <span>R$ {total}</span>
                 </div>
-                <Button type="submit" enabled={true}>
+                <Button 
+                    type="submit" 
+                    enabled={true}
+                    onClick={post}
+                    loading={loading}
+                >
                     Finalizar compra
                 </Button>
             </div>
