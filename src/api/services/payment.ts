@@ -10,7 +10,9 @@ type Product = {
 
 export class Payment{
 
-    static createOrder(products: Product[]){
+    static createOrder(products: Product[], orderId: string | number){
+        const appUrl = process.env.URL || '';
+
         mercadopago.configure({
             access_token: process.env.PAYMENT_PRIVATE_KEY || ''
         });
@@ -25,7 +27,13 @@ export class Payment{
         })
 
         const preference = {
-            items: items
+            items: items,
+            back_urls: {
+                success: appUrl + '/checkout/success/' + orderId,
+                failure: appUrl + '/checkout/failure/' + orderId,
+                pending: appUrl + '/checkout/pending/' + orderId
+            },
+            notification_url: appUrl + '/api/order/' + String(orderId) + '/update',
         }
 
         try{

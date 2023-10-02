@@ -437,7 +437,6 @@ export class DataBase {
             });
 
             const orderId = newOrder.id;
-
             
             //create order items for the new order
             const updatedItems = await Promise.all(
@@ -452,9 +451,80 @@ export class DataBase {
                     });
                 })
             );
+
+            return orderId;
         }
         catch(err: any){
             throw new Error('Erro ao processar pedido.' + err.message);
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
+
+    public async getOrders(page: number, take: number){
+
+        //pagination
+        const skip = ( page - 1 )  * 10;
+
+        try{
+            const data = await this.prisma.order.findMany({
+                skip: skip,
+                take: take,
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            });
+            return data;
+        }
+        catch(err: any){
+            throw new Error(err.message);
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
+
+    public async getOrdersByUserId(userId: string, page: number, take: number){
+
+        //pagination
+        const skip = ( page - 1 )  * 10;
+
+        try{
+            const data = await this.prisma.order.findMany({
+                skip: skip,
+                take: take,
+                where: {
+                    userId: {
+                        equals: userId
+                    },
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            });
+            return data;
+        }
+        catch(err: any){
+            throw new Error(err.message);
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
+
+    public async getOrderById(orderId: number){
+
+        try{
+            const data = await this.prisma.order.findUnique({
+                where: {
+                    id: orderId
+                },
+            });
+            return data;
+        }
+        catch(err: any){
+            throw new Error(err.message);
         }
         finally{
             await this.prisma.$disconnect();

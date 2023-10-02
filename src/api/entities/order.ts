@@ -18,7 +18,7 @@ export class Order {
     private productIdList: number[];
     private requestProducts: Product[];
 
-    constructor(requestProducts: Product[]){
+    constructor(requestProducts: Product[], public orderId?: string){
         //starts DataBase
         this.db = new DataBase();
 
@@ -39,11 +39,11 @@ export class Order {
         try{
             const products = await this.verifyProducts(this.productIdList, this.requestProducts);
 
-            const dbProducts = await this.db.createOrder(userId, products);
+            const dbProductsId = await this.db.createOrder(userId, products);
 
-            const paymentResponse = await Promise.all([dbProducts])
+            const paymentResponse = await Promise.all([dbProductsId])
                 .then(async()=>{
-                    const order = await Payment.createOrder(products);
+                    const order = await Payment.createOrder(products, dbProductsId);
                     return order;
                 })
         
@@ -53,6 +53,43 @@ export class Order {
             throw new Error('Erro ao criar pedido.');
         }
 
+    }
+
+    public async updateOrder(){
+    }
+
+    public async getOrders(page: number, take: number){
+        try{
+            const dbProducts = await this.db.getOrders(page, take);
+
+            return dbProducts;
+        }
+        catch(err: any){
+            throw new Error(err.message);
+        }
+    }
+
+    public async getOrdersByUserId(userId: string, page: number, take: number){
+        try{
+            const dbProducts = await this.db.getOrdersByUserId(userId, page, take);
+
+            return dbProducts;
+        }
+        catch(err: any){
+            throw new Error(err.message);
+        }
+    }
+
+    public async getOrderById(orderId: number){
+
+        try{
+            const dbProduct = await this.db.getOrderById(orderId);
+
+            return dbProduct;
+        }
+        catch(err: any){
+            throw new Error(err.message);
+        }
     }
 
     //Find the products inside a productList in DataBase and return an array with the info,
