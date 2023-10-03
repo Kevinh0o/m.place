@@ -28,9 +28,13 @@ export default function Product({ title, id, price, discount, images }: Props) {
                 {title}
             </h1>
             <div>
-                <div className="text-xs text-gray-600 px-2 flex line-through">
-                    <p> R$ </p>
-                    <p> {discount} </p>
+                <div className="text-xs text-gray-600 px-2 line-through">
+                    {discount > 0 &&
+                        <>
+                            <span> R$ </span>
+                            <span> {discount} </span>
+                        </>
+                    }
                 </div>
                 <div className="text-md font-bold text-gray-700 px-2 flex">
                     <p> R$ </p>
