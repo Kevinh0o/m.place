@@ -11,6 +11,7 @@ export default function Cart() {
     const [discount, setDiscount] = useState(0);
     const [total, setTotal] = useState(0);
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+    const [unavalible, setUnavalible] = useState<string[]>([]);
 
     const router = useRouter();
     const { data: items }  =  useLocalStorage('cart');
@@ -41,7 +42,7 @@ export default function Cart() {
     }, [price, discount])
 
     useEffect(()=>{
-        if(items && items.length > 0 && total > 0){
+        if(items && items.length > 0 && total > 0 && unavalible.length === 0){
             setIsButtonEnabled(true);
         } else {
             setIsButtonEnabled(false);
@@ -67,6 +68,7 @@ export default function Cart() {
                                 id={item}
                                 priceCounter={price}
                                 setPriceCounter={setPrice}
+                                setUnavalible={setUnavalible}
                                 discountCounter={discount}
                                 setDiscountCounter={setDiscount}
                             />

@@ -11,6 +11,7 @@ type Props = {
     setPriceCounter: Function;
     discountCounter: number;
     setDiscountCounter: Function;
+    setUnavalible: Function;
 }
 
 type Product = {
@@ -27,7 +28,8 @@ export default function CartItem({
     priceCounter,
     setPriceCounter,
     discountCounter,
-    setDiscountCounter
+    setDiscountCounter,
+    setUnavalible
 }: Props) {
 
     const req = {
@@ -40,13 +42,29 @@ export default function CartItem({
     const { remove } = useLocalStorage('cart');
 
     function handleCLick(){
+        //remove from unavalible list manualy
+        setUnavalible((prev: string[])=> prev.filter((item)=> item !== id));
         remove(id);
+
     }
 
     useEffect(()=>{
         setPriceCounter((prev: number)=> prev + product?.price || 0);
         setDiscountCounter((prev: number)=> prev + product?.discount || 0);
+
     }, [ , product])
+    
+    useEffect(()=>{
+        if(!product || product.amount <= 0 && isFetching !== true){
+            //add to unavalible list
+            setUnavalible((prev: string[])=> [...prev, id]);
+        }
+
+        if(product){
+            //remove from unavalible list automaticaly
+            setUnavalible((prev: string[])=> prev.filter((item)=> item !== id));
+        }
+    }, [product, isFetching])
 
     return (
         <div className="w-full h-[100px] border border-gray-300 p-2 flex 
