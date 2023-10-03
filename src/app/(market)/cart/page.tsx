@@ -53,6 +53,7 @@ export default function Cart() {
         }
     }, [items, total])
 
+    //check if user is logged in to proceed, if its not redirect to login page
     function handleClick(){
         if(user){
             post();
