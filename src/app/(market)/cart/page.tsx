@@ -1,12 +1,14 @@
 'use client';
 import CartItem from "@/client/components/cart/cart-item";
 import Button from "@/client/components/input/button";
+import { AuthContext } from "@/client/contexts/auth-context";
 import useLocalStorage from "@/client/hooks/useLocalStorage";
 import usePost from "@/client/hooks/usePost";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Cart() {
+    const { user } = useContext(AuthContext);
     const [price, setPrice] = useState(0);
     const [discount, setDiscount] = useState(0);
     const [total, setTotal] = useState(0);
@@ -30,6 +32,7 @@ export default function Cart() {
         }
     });
 
+    //If everythinbf is ok, redirect to checkout page
     useEffect(()=>{
         if(response && response !== undefined){
             router.push(`/checkout/${response.data.body.id}`);
@@ -41,6 +44,7 @@ export default function Cart() {
         setTotal(price - discount);
     }, [price, discount])
 
+    //Check if all items are avalible before enabling checkout button
     useEffect(()=>{
         if(items && items.length > 0 && total > 0 && unavalible.length === 0){
             setIsButtonEnabled(true);
@@ -48,6 +52,15 @@ export default function Cart() {
             setIsButtonEnabled(false);
         }
     }, [items, total])
+
+    function handleClick(){
+        if(user){
+            post();
+        }
+        else{
+            router.push('/login');
+        }
+    }
 
     return (
         <div className="p-5 pt-16 bg-gray-200 h-screen flex justify-center
@@ -94,7 +107,7 @@ export default function Cart() {
                 <Button 
                     type="submit" 
                     enabled={isButtonEnabled}
-                    onClick={post}
+                    onClick={handleClick}
                     loading={loading}
                 >
                     Finalizar compra

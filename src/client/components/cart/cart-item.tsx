@@ -25,9 +25,7 @@ type Product = {
 
 export default function CartItem({ 
     id,
-    priceCounter,
     setPriceCounter,
-    discountCounter,
     setDiscountCounter,
     setUnavalible
 }: Props) {
