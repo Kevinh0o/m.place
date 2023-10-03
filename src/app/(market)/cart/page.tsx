@@ -6,21 +6,11 @@ import usePost from "@/client/hooks/usePost";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-type Props = {
-}
-
-type Product = {
-    title: string;
-    discount: number;
-    price: number;
-    images: string[];
-    id: string;
-}
-
 export default function Cart() {
     const [price, setPrice] = useState(0);
     const [discount, setDiscount] = useState(0);
     const [total, setTotal] = useState(0);
+    const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
     const router = useRouter();
     const { data: items }  =  useLocalStorage('cart');
@@ -50,10 +40,18 @@ export default function Cart() {
         setTotal(price - discount);
     }, [price, discount])
 
+    useEffect(()=>{
+        if(items && items.length > 0 && total > 0){
+            setIsButtonEnabled(true);
+        } else {
+            setIsButtonEnabled(false);
+        }
+    }, [items, total])
+
     return (
         <div className="p-5 pt-16 bg-gray-200 h-screen flex justify-center
         gap-2">
-            <div className="h-full w-full bg-white rounded-md border border-gray-300
+            <div className="h-full md:max-w-screen-xl w-full bg-white rounded-md border border-gray-300
             shadow-sm overflow-auto">
                 <div className="p-4 gap-2 flex flex-col">
                     <h1 className="text-xl font-semibold">
@@ -93,7 +91,7 @@ export default function Cart() {
                 </div>
                 <Button 
                     type="submit" 
-                    enabled={true}
+                    enabled={isButtonEnabled}
                     onClick={post}
                     loading={loading}
                 >
