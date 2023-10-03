@@ -41,21 +41,21 @@ export default function Header() {
                     setVisibility={setVisibility}
                 />
                 <DropDownItem 
-                    src="./apple-icon.svg" 
+                    src="/apple-icon.svg" 
                     title="Smartphones Apple"
                     href="/products?maxPrice=10000&minPrice=0&sortby=desc&brand=Apple&search=&page=1"
                     alt="Icone apple"
                     setVisibility={setVisibility}
                 />
                 <DropDownItem 
-                    src="./bug.svg" 
+                    src="/bug.svg" 
                     title="Em breve"
                     href="/products"
                     alt="alt"
                     setVisibility={setVisibility}
                 />
                 <DropDownItem 
-                    src="./bug.svg" 
+                    src="/bug.svg" 
                     title="Em breve"
                     href="/products"
                     alt="alt"
