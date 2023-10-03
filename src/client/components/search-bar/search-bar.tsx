@@ -35,7 +35,7 @@ export default function SearchBar() {
             if(buffer === e.target.value){
                 setSearch(e.target.value);
             }
-        }, 2000);
+        }, 1000);
     }
 
     useEffect(() => {
@@ -70,27 +70,28 @@ export default function SearchBar() {
                         {products &&
                             <div className="w-full h-full flex flex-col justify-between">
                                 <p> Pesquisando por {' '} <span className="font-bold text-lg"> {search} </span> </p>
-                                {
-                                    products.data.map((product: Product)=>{
-                                        return(
-                                            <div
-                                                key={product.id}
-                                                className="flex gap-2 w-full justify-start
-                                                overflow-x-auto"
-                                            >
-                                                <div>
-                                                    <Product
-                                                        id={product.id}
-                                                        title={product.title}
-                                                        price={product.price}
-                                                        images={product.images}
-                                                        discount={product.discount}
-                                                    />
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
+                                <div
+                                className="flex gap-2 w-full justify-start
+                                overflow-x-auto overflow-y-hidden"
+                                >
+                                    {
+                                        products.data.map((product: Product)=>{
+                                            return(
+                                                    <div
+                                                        key={product.id}
+                                                    >
+                                                        <Product
+                                                            id={product.id}
+                                                            title={product.title}
+                                                            price={product.price}
+                                                            images={product.images}
+                                                            discount={product.discount}
+                                                        />
+                                                    </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                                 <Link 
                                     href={'/products?search=' + search}
                                     onClick={()=>setVisibilityOfSearchBar(false)}
@@ -103,7 +104,7 @@ export default function SearchBar() {
                         }
                         {error &&
                             <p className="text-center text-red-400">
-                                Nenhum produto não nao encontrado.
+                                Nenhum produto encontrado.
                             </p>
                         }
                     </div>
