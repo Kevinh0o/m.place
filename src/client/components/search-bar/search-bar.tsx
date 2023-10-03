@@ -71,8 +71,9 @@ export default function SearchBar() {
                             <div className="w-full h-full flex flex-col justify-between">
                                 <p> Pesquisando por {' '} <span className="font-bold text-lg"> {search} </span> </p>
                                 <div
-                                className="flex gap-2 w-full justify-start
-                                overflow-x-auto overflow-y-hidden"
+                                    className="flex gap-2 w-full justify-start
+                                    overflow-x-auto overflow-y-hidden"
+                                    onClick={()=>setVisibilityOfSearchBar(false)}
                                 >
                                     {
                                         products.data.map((product: Product)=>{
