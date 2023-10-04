@@ -26,6 +26,7 @@ export default function AuthContextProvider({ children }: Props){
 
     useEffect(()=>{
         if(token){
+            console.log('token', token)
             setUser(token);
             //routes that auth users shouldnt need
             if(( path == '/register' || path == '/login' ) && token.length > 0){
@@ -33,9 +34,14 @@ export default function AuthContextProvider({ children }: Props){
             }
         
             //protected routes > NEED authentication
-            if(path == '/profile' && token.length == 0 ){
+            if(path == '/profile' && token.length <= 0){
                 router.push('/')
             }
+        }
+
+        //Garants that the user is logged out when the token is removed
+        if(!token && path == '/profile'){
+            router.push('/')
         }
 
         //sets the token in the axios header for private data fetching
