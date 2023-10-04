@@ -15,7 +15,7 @@ export default function Navigation() {
                     <NavigationItem link="/profile/comments" title="Comentários"/>
                     <NavigationItem link="/profile/orders" title="Pedidos"/>
                     <NavigationItem link="/profile/dashboard" title="Dashboard"/>
-                    <NavigationItem link="/profile/orders" title="Sair"/>
+                    <NavigationItem link="/profile/exit" title="Sair"/>
                 </ul>
             </div>
         </nav>
