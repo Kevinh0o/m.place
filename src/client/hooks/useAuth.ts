@@ -27,7 +27,7 @@ export default function useAuth({ username, password }: Req){
     const authenticate = async() =>{
         setLoading(true);
 
-        if(userToken.length > 0){
+        if(userToken && userToken.length > 0){
             clear();
         }
 
