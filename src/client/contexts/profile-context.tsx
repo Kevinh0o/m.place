@@ -29,7 +29,11 @@ type Comment = {
 }
 
 type Order = {
-    
+    id: string;
+    userId: string;
+    createdAt: Date;
+    totalPrice: number;
+    status: string;
 }
 
 export const ProfileContext = createContext<ContextProps>({
