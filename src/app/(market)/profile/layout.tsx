@@ -52,7 +52,7 @@ export default function ProfileLayout({ children }: Props) {
                     {isFetching ?
                         <LoadingBlack /> 
                         :
-                        <div> 
+                        <div className="h-full"> 
                             {children}
                         </div>
                     }
