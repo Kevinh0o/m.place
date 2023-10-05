@@ -2,6 +2,7 @@
 import Button from "@/client/components/input/button";
 import ColorSelector from "@/client/components/product/color-selector";
 import Comments from "@/client/components/product/comments";
+import Description from "@/client/components/product/description";
 import ImageSelector from "@/client/components/product/image-selector";
 import Selector from "@/client/components/product/selector";
 import useFetch from "@/client/hooks/useFetch";
@@ -17,6 +18,7 @@ type Props = {
 type Product = {
     id: string;
     title: string;
+    description: string;
 }
 
 export default function ProductPage({ params }: Props) {
@@ -88,7 +90,7 @@ export default function ProductPage({ params }: Props) {
             <div className="h-screen w-full">
                 <div className="p-2">
                     <div className="bg-white border border-gray-300 rounded-md">
-                        description
+                        <Description description={product?.description} />
                     </div>
                 </div>
                 <div className="p-2">

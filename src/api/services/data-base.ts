@@ -325,6 +325,34 @@ export class DataBase {
         }
     }
 
+    public async getCommentsByUserId(productId: number, userId: string){
+
+        try{
+            const data = await this.prisma.comment.findMany({
+                where: {
+                    productId: {
+                        equals: productId
+                    },
+                    userId: {
+                        equals: userId
+                    }
+                },
+            });
+
+            if(data.length === 0){
+                throw new Error('Nenhum comentário não encontrado.');
+            }
+            
+            return data;
+        }
+        catch(err: any){
+            throw new Error(err.message);
+        }
+        finally{
+            await this.prisma.$disconnect();
+        }
+    }
+
     public async createComment(comment: Comment){
         try{
             await this.prisma.comment.create({
@@ -336,7 +364,7 @@ export class DataBase {
             });
         }
         catch(err: any){
-            throw new Error('Comentario já existente.');
+            throw new Error('Comentario já existente.' + err.message);
         }
         finally{
             await this.prisma.$disconnect();

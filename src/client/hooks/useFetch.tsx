@@ -34,5 +34,8 @@ export default function useFetch<T = unknown>({ url, cache, token }: Req){
         return response.data;
     }, retryConfig)
 
-    return {data, isFetching, error, refetch}
+    //This is a workaround to make the error object not unknow
+    const fetchError: any = error;
+
+    return {data, isFetching, fetchError, refetch}
 }
