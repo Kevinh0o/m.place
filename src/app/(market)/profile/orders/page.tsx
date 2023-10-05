@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 
 export default function ProfileOrders() {
     const { user } = useContext(ProfileContext);
+    if(!user) return null;
 
     return(
         <div className="p-2 h-full overflow-x-hidden overflow-y-scroll">
@@ -29,7 +30,7 @@ export default function ProfileOrders() {
                     })
                 }
             </div>
-            {!user?.orders &&
+            {user.orders.length <=0 &&
                 <div className="p-5">
                     <p>
                         Você não tem pedidos.

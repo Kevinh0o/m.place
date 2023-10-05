@@ -15,7 +15,7 @@ model User {
   username String   @unique
   password String
   type     Role     @default(USER)
-  comments Comment?
+  comments Comment[]
   orders   Order[]
 }
 
@@ -40,8 +40,8 @@ model Order {
   id         Int         @id @default(autoincrement())
   userId     String
   totalPrice Float
-  status    Status      @default(PENDING)
   createdAt  DateTime    @default(now())
+  status     Status      @default(PENDING)
   user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   orderItem  OrderItem[]
 }

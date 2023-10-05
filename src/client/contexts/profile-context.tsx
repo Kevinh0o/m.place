@@ -17,8 +17,8 @@ type User = {
     id: string;
     username: string;
     type: string;
-    comments: [Comment];
-    orders: [Order];
+    comments: Comment[];
+    orders: Order[];
 }
 
 type Comment = {

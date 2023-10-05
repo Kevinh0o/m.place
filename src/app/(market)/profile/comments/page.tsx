@@ -1,10 +1,12 @@
 'use client';
 import Comment from "@/client/components/profile/comment";
 import { ProfileContext } from "@/client/contexts/profile-context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function ProfileComments() {
     const { user } = useContext(ProfileContext);
+
+    if(!user) return null;
     
     return(
         <div className="p-2">
@@ -13,8 +15,8 @@ export default function ProfileComments() {
                     Comentários
                 </h1>
             </div>
-            {user &&
-                user.comments?.map((comment, index) => {
+            {user.comments.length >= 0 &&
+                user.comments.map((comment, index) => {
                     return(
                         <div key={index}>
                             <Comment
@@ -27,7 +29,7 @@ export default function ProfileComments() {
                     )
                 })
             }
-            {!user?.comments &&
+            {user.comments.length <= 0 &&
                 <div className="p-5">
                     <p>
                         Você não tem comentários.
