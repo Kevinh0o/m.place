@@ -9,7 +9,7 @@ export default function ProfileComments() {
     if(!user) return null;
     
     return(
-        <div className="p-2">
+        <div className="p-2 h-full overflow-x-hidden overflow-y-scroll">
             <div>
                 <h1 className="text-2xl">
                     Comentários

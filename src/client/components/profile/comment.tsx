@@ -35,8 +35,8 @@ export default function Comment({ userId, date, content, productId }: Props) {
         }
     });
 
-    const tempDate = new Date(date);
-    const convertedDate = date.getDate()+ '/' + date.getMonth() + '/' + date.getFullYear();
+    const newDate = new Date(date);
+    const convertedDate = newDate.toLocaleDateString();
 
     return (
         <div>

@@ -11,10 +11,10 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  username String   @unique
+  id       String    @id @default(uuid())
+  username String    @unique
   password String
-  type     Role     @default(USER)
+  type     Role      @default(USER)
   comments Comment[]
   orders   Order[]
 }
@@ -56,7 +56,8 @@ model OrderItem {
 }
 
 model Comment {
-  userId    String   @id
+  id        Int      @id @default(autoincrement())
+  userId    String
   productId Int
   createdAt DateTime @default(now())
   content   String
