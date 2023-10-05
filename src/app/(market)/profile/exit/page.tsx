@@ -1,16 +1,16 @@
 'use client';
+import { AuthContext } from "@/client/contexts/auth-context";
 import { ProfileContext } from "@/client/contexts/profile-context";
-import useLocalStorage from "@/client/hooks/useLocalStorage";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function ProfileOrders() {
-    const { clear } = useLocalStorage('token');
+    const { logOut } = useContext(AuthContext);
     const { setUser } = useContext(ProfileContext);
 
-    useState(()=>{
-        clear();
+    useEffect(()=>{
+        logOut();
         setUser(undefined);
-    })
+    }, [])
 
     return(
         <div className="p-4 font-bold">

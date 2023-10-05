@@ -1,7 +1,11 @@
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function useLocalStorage(key: string){
-    const [data, setData] = useState<string[]>();
+    const eventListener = window.addEventListener('storage', updateData);
+    const path = usePathname();
+
+    const [data, setData] = useState<string[] | undefined>(JSON.parse(localStorage.getItem(key) || '[]'));
 
     const [changed, setChanged] = useState(0);
 
@@ -11,6 +15,9 @@ export default function useLocalStorage(key: string){
         if(localStorageData){
             const newData = JSON.parse(localStorageData);
             setData(newData);
+        }
+        if(!localStorageData){
+            setData(undefined);
         }
     }
     
@@ -61,12 +68,7 @@ export default function useLocalStorage(key: string){
     useEffect(()=>{
         updateData();
 
-        window.addEventListener('storage', updateData);
+    }, [changed, eventListener, path])
 
-        return () => {
-            window.removeEventListener('storage', updateData);
-        };
-    }, [changed])
-
-    return {data, remove, push, clear};
+    return {data, remove, push, clear, updateData};
 }

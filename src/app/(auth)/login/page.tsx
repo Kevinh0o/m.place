@@ -1,5 +1,4 @@
 'use client';
-
 import Logo from "@/client/components/icons/logo";
 import Button from "@/client/components/input/button";
 import TextInput from "@/client/components/input/text-input";
@@ -24,8 +23,8 @@ export default function Login() {
     useEffect(() => {
         if(response == 'Usuário logado com sucesso.') {
             setTimeout(() => {
-                router.push('/')
-            }, 2000)
+                router.replace('/')
+            }, 1000)
         }
     }, [response])
 

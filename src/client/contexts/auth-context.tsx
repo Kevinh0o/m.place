@@ -10,48 +10,61 @@ type Props = {
 
 type ContextProps = {
     user: string[] | undefined;
+    logOut: ()=>void;
 }
 
 export const AuthContext = createContext<ContextProps>({
-    user: []
+    user: [],
+    logOut: ()=>{}
 });
 
 export default function AuthContextProvider({ children }: Props){
     const [user, setUser] = useState<string[]>();
 
-    const { data: token, remove } = useLocalStorage('token');
+    const { data: token, updateData, clear } = useLocalStorage('token');
 
     const path = usePathname();
     const router = useRouter();
 
     useEffect(()=>{
         if(token){
-            console.log('token', token)
             setUser(token);
-            //routes that auth users shouldnt need
+            //routes that auth users shouldnt need // convenient redirects
             if(( path == '/register' || path == '/login' ) && token.length > 0){
-                router.push('/')
-            }
-        
-            //protected routes > NEED authentication
-            if(path == '/profile' && token.length <= 0){
-                router.push('/')
+                router.replace('/profile')
             }
         }
 
+        //Case that token is empty, key starts empty == [], and then goes to undefined when actually
+        //doent find the user
+        if(token?.length == 0){
+        }
+        
+        //Case that token is undefined
         //Garants that the user is logged out when the token is removed
-        if(!token && path == '/profile'){
-            router.push('/')
+        if(!token){
+            setUser(undefined);
+
+            if(path?.includes('/profile')){
+                router.replace('/login');
+            }
         }
 
         //sets the token in the axios header for private data fetching
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         
-    }, [token, path, router])
+    }, [token, path, router, user])
+
+    const logOut = () => {
+        setUser(undefined);
+        clear();
+        router.push('/')
+    }
 
     return(
         <AuthContext.Provider value={{
-            user
+            user,
+            logOut
         }}>
             {children}
         </AuthContext.Provider>
