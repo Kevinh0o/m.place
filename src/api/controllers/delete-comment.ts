@@ -4,27 +4,22 @@ import { TokenUtils } from "../utils/token-utils";
 
 export default async function deleteComment(
     token: string,
-    productId: number,
+    id: number,
 ){
     const user: any = TokenUtils.verifyToken(token);
 
-    if(!productId){
-        throw new Error('invalid product info.');
+    if(!id){
+        throw new Error('Informações inválidas.');
     }
 
     if(!user.id){
-        throw new Error('invalid user.');
+        throw new Error('Usuário não autenticado.');
     }
 
     const db = new DataBase();
 
-    const comment = new Comment(
-        productId,
-        user.id
-    );
-
     try{
-        return await db.deleteComment(comment);
+        return await db.deleteComment(id);
     }
     catch(err: any){
         throw new Error(err);

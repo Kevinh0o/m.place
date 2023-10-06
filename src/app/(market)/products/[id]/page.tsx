@@ -1,4 +1,5 @@
 'use client';
+import LoadingBlack from "@/client/components/icons/loading-animation-black";
 import Button from "@/client/components/input/button";
 import ColorSelector from "@/client/components/product/color-selector";
 import Comments from "@/client/components/product/comments";
@@ -19,6 +20,8 @@ type Product = {
     id: string;
     title: string;
     description: string;
+    price: number;
+    discount: number;
 }
 
 export default function ProductPage({ params }: Props) {
@@ -39,6 +42,14 @@ export default function ProductPage({ params }: Props) {
         }
     }
 
+    if(!product){
+        return (
+            <div className="h-screen w-screen bg-white flex justify-center items-center">
+                <LoadingBlack />
+            </div>
+        )
+    }
+
     return (
         <div className="flex flex-col items-center">
             <div className="h-screen max-w-screen-xl pt-16">
@@ -56,20 +67,22 @@ export default function ProductPage({ params }: Props) {
                             <Selector type="Modelo" options={["128gb", "256gb", "512gb"]}/>
                         </div>
                         <div className="">
-                            <div className="line-through text-sm text-gray-400">
-                                <span>
-                                    R$
-                                </span>
-                                <span>
-                                    1000,00
-                                </span>
-                            </div>
+                            {product.discount > 0 &&
+                                <div className="line-through text-sm text-gray-400">
+                                    <span>
+                                        R$
+                                    </span>
+                                    <span>
+                                        {product.discount}
+                                    </span>
+                                </div>
+                            }
                             <div className="text-xl font-bold">
                                 <span>
                                     R$
                                 </span>
                                 <span className="text-xl font-bold">
-                                    100,00
+                                    {product.price}
                                 </span>
                             </div>
                             <div className="text-sm">
@@ -77,7 +90,8 @@ export default function ProductPage({ params }: Props) {
                                     Em até 12x de R$
                                 </span>
                                 <span className="">
-                                    100,00
+                                    {Math.ceil(product.price / 12)}
+                                    {',99'}
                                 </span>
                             </div>
                             <Button type="submit" enabled={true} onClick={handleClick}>
@@ -90,7 +104,7 @@ export default function ProductPage({ params }: Props) {
             <div className="min-h-screen w-full">
                 <div className="p-2">
                     <div className="bg-white border border-gray-300 rounded-md">
-                        <Description description={product?.description} />
+                        <Description description={product.description} />
                     </div>
                 </div>
                 <div className="p-2">

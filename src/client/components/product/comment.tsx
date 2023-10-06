@@ -2,9 +2,10 @@ type Props = {
     userId: string;
     date: Date;
     content: string;
+    id: number;
 }
 
-export default function Comment({ userId, date, content }: Props) {
+export default function Comment({ userId, date, content, id }: Props) {
 
     const newDate = new Date(date);
     const convertedDate = newDate.toLocaleDateString();
@@ -12,7 +13,7 @@ export default function Comment({ userId, date, content }: Props) {
     return (
         <div
             className="bg-white p-2 border m-2 flex flex-col"
-            key={userId}
+            key={id}
         >
             {date &&
                 <div className="flex items-end text-xs">

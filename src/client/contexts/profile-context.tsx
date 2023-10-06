@@ -26,6 +26,7 @@ type Comment = {
     content: string;
     createdAt: Date;
     productId: string;
+    id: number;
 }
 
 type Order = {

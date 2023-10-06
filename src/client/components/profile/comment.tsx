@@ -9,16 +9,17 @@ type Props = {
     date: Date;
     content: string;
     productId: string;
+    id: number;
 }
 
-export default function Comment({ userId, date, content, productId }: Props) {
+export default function Comment({ userId, date, content, productId, id }: Props) {
     const [isUpdateVisible, setUpdateVisibility] = useState(false);
     const [update, setUpdate] = useState('');
 
     const {post, response, error, loading} = usePost({
         url: '/api/comment/delete',
         body: {
-            productId: productId
+            id: id
         }
     });
 
@@ -30,7 +31,7 @@ export default function Comment({ userId, date, content, productId }: Props) {
     } = usePut({
         url: '/api/comment/update',
         body: {
-            productId: productId,
+            id: id,
             content: update
         }
     });

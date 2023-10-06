@@ -18,12 +18,13 @@ export default function ProfileComments() {
             {user.comments.length >= 0 &&
                 user.comments.map((comment, index) => {
                     return(
-                        <div key={index}>
+                        <div key={comment.id}>
                             <Comment
                                 productId={comment.productId}
                                 userId={comment.userId} 
                                 date={comment.createdAt}
                                 content={comment.content}
+                                id={comment.id}
                             />
                         </div>
                     )

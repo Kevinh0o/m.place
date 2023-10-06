@@ -357,7 +357,7 @@ export class DataBase {
         try{
             await this.prisma.comment.create({
                 data: {
-                    userId: comment.id,
+                    userId: comment.userId,
                     productId: comment.productId,
                     content: comment.content
                 }
@@ -371,15 +371,14 @@ export class DataBase {
         }
     }
 
-    public async updateComment(comment: Comment){
+    public async updateComment(id: number, content: string){
         try{
             await this.prisma.comment.update({
                 where: {
-                    userId: comment.id,
-                    productId: comment.productId,
+                    id: id
                 },
                 data: {
-                    content: comment.content
+                    content: content
                 }
             });
         }
@@ -391,17 +390,16 @@ export class DataBase {
         }
     }
 
-    public async deleteComment(comment: Comment){
+    public async deleteComment(id: number){
         try{
             await this.prisma.comment.delete({
                 where: {
-                    userId: comment.id,
-                    productId: comment.productId,
+                    id: id
                 }
             });
         }
         catch(err: any){
-            throw new Error('Produto não encontrado');
+            throw new Error('Não foi possivel deleter o comentário, pois o mesmo não foi encontrado');
         }
         finally{
             await this.prisma.$disconnect();

@@ -13,6 +13,7 @@ type Comment = {
     userId: string;
     content: string;
     createdAt: Date;
+    id: number;
 }
 
 export default function Comments({ productId }: Props) {
@@ -62,6 +63,7 @@ export default function Comments({ productId }: Props) {
                                 userId={'Você'} 
                                 content={comment.content}
                                 date={comment.createdAt}
+                                id={comment.id}
                             />
                         </div>
                     }
@@ -72,6 +74,7 @@ export default function Comments({ productId }: Props) {
                                     userId={comment.userId} 
                                     date={comment.createdAt}
                                     content={comment.content}
+                                    id={comment.id}
                                 />
                             </div>
                         )
