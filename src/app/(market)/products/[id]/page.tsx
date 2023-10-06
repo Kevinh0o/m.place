@@ -87,7 +87,7 @@ export default function ProductPage({ params }: Props) {
                     </div>
                 </div>
             </div>
-            <div className="h-screen w-full">
+            <div className="min-h-screen w-full">
                 <div className="p-2">
                     <div className="bg-white border border-gray-300 rounded-md">
                         <Description description={product?.description} />
