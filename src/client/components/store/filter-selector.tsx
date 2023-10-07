@@ -143,12 +143,12 @@ export default function FilterSelector() {
                 <div>
                     <input 
                         type="radio"
-                        checked={brand == 'Samsumg'}
-                        onChange={() => setBrand('Samsumg')}
+                        checked={brand == 'Samsung'}
+                        onChange={() => setBrand('Samsung')}
                         name="brand"
-                        id="Samsumg"
+                        id="Samsung"
                         className="border rounded-md"/>
-                    <label htmlFor="Samsumg"> Samsumg </label>
+                    <label htmlFor="Samsumg"> Samsung </label>
                 </div>
             </div>
             <div>

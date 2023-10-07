@@ -3,16 +3,13 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function ImageSelector() {
+type Props = {
+    images: string[];
+}
 
-    const array = [
-        '/iphone14-image.jpeg',
-        '/galaxyfold-image.avif',
-        '/iphone14-image.jpeg',
-        '/macbook-image.jpg'
-    ];
+export default function ImageSelector({ images }: Props) {
 
-    const [selected, setSelected] = useState(array[0]);
+    const [selected, setSelected] = useState(images[0] + '.jpg');
 
     return (
         <div className="h-full p-5 flex flex-col justify-start items-center">
@@ -22,25 +19,25 @@ export default function ImageSelector() {
                     alt="iphone"
                     width={1440} 
                     height={640}
-                    className="h-full object-cover overflow-hidden rounded-md border
+                    className="h-full object-contain overflow-hidden rounded-md border
                     border-gray-300"
                 />
             </div>
 
             <div className="h-1/4 flex gap-2">
-                {array.map((e)=>{
+                {images.map((image)=>{
                     return(
                         <div 
-                            key={e} 
+                            key={image} 
                             className="md:w-[100px] md:h-[100px] h-[50px] w-[50px] border rounded-lg border-1 cursor-pointer"
-                            onClick={()=>setSelected(e)}
+                            onClick={()=>setSelected(image + '.jpg')}
                         >
                             <Image
-                                src={e}
+                                src={image + '.jpg'}
                                 alt="iphone"
                                 width={500} 
                                 height={500}
-                                className="h-full object-cover overflow-hidden rounded-lg border-1"
+                                className="h-full object-contain overflow-hidden rounded-lg border-1"
                             />
                         </div>
                     )

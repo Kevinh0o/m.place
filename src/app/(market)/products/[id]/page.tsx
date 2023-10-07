@@ -22,6 +22,9 @@ type Product = {
     description: string;
     price: number;
     discount: number;
+    colors: string[];
+    variations: string[];
+    images: string[];
 }
 
 export default function ProductPage({ params }: Props) {
@@ -56,15 +59,15 @@ export default function ProductPage({ params }: Props) {
                 <div className="flex flex-col md:flex-row w-full h-full p-2 gap-1">
                     <div className="bg-white border border-gray-300 rounded-md h-full md:w-[75%] w-full">
                         <h1 className="text-lg p-2">
-                            Iphone todos
+                            {product.title}
                         </h1>
-                        <ImageSelector/>
+                        <ImageSelector images={product.images}/>
                     </div>
                     <div className="bg-white border border-gray-300 rounded-md h-full md:w-[25%] w-full p-2
                     flex flex-col justify-between">
                         <div className="flex flex-col gap-4">
-                            <ColorSelector type="Cor" options={["red", "blue"]}/>
-                            <Selector type="Modelo" options={["128gb", "256gb", "512gb"]}/>
+                            <ColorSelector type="Cor" options={product.colors}/>
+                            <Selector type="Modelo" options={product.variations}/>
                         </div>
                         <div className="">
                             {product.discount > 0 &&
@@ -73,7 +76,7 @@ export default function ProductPage({ params }: Props) {
                                         R$
                                     </span>
                                     <span>
-                                        {product.discount}
+                                        {product.price}
                                     </span>
                                 </div>
                             }
@@ -82,7 +85,7 @@ export default function ProductPage({ params }: Props) {
                                     R$
                                 </span>
                                 <span className="text-xl font-bold">
-                                    {product.price}
+                                    {product.price - product.discount}
                                 </span>
                             </div>
                             <div className="text-sm">
@@ -90,7 +93,7 @@ export default function ProductPage({ params }: Props) {
                                     Em até 12x de R$
                                 </span>
                                 <span className="">
-                                    {Math.ceil(product.price / 12)}
+                                    {Math.ceil((product.price - product.discount) / 12)}
                                     {',99'}
                                 </span>
                             </div>

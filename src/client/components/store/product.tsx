@@ -18,7 +18,7 @@ export default function Product({ title, id, price, discount, images }: Props) {
             p-1 border border-gray-300 shadow-sm"
         >
             <Image
-                src={images[0]}
+                src={images[0] + '.jpg'}
                 alt={'Imagem do produto ' + title}
                 width={230} 
                 height={200}
@@ -32,13 +32,13 @@ export default function Product({ title, id, price, discount, images }: Props) {
                     {discount > 0 &&
                         <>
                             <span> R$ </span>
-                            <span> {discount} </span>
+                            <span> {price} </span>
                         </>
                     }
                 </div>
                 <div className="text-md font-bold text-gray-700 px-2 flex">
                     <p> R$ </p>
-                    <p> {price} </p>
+                    <p> {price - discount} </p>
                 </div>
             </div>
         </Link>
