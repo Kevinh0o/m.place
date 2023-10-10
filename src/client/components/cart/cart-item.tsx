@@ -47,8 +47,10 @@ export default function CartItem({
     }
 
     useEffect(()=>{
-        setPriceCounter((prev: number)=> prev + product?.price || 0);
-        setDiscountCounter((prev: number)=> prev + product?.discount || 0);
+        if(product){
+            setPriceCounter((prev: number)=> prev + product.price);
+            setDiscountCounter((prev: number)=> prev + product.discount);
+        }
 
     }, [ , product])
     
