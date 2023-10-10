@@ -15,59 +15,59 @@ export default function Home() {
         <ProductBannerWide
           color="white" 
           textColor='black'
-          title="Iphone 13"
-          subTitle=" uiui aiai"
-          href="/"
+          title="Samsung Galaxy S23 Ultra"
+          subTitle="5G 256GB Tela 6.8'' 12GB RAM Câmera Quádrupla de até 200MP + Selfie 12MP"
+          href="/products/20"
           linkContent="Comprar"
         >
-          <Image src='/galaxyfold-image.png' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
+          <Image src='/Samsung-s23-banner.png' alt='Smartphone Samsung galaxy S23 Ultra' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
         </ProductBannerWide>
 
         <ProductBannerWide
           color="black" 
           textColor='white'
-          title="Iphone 13"
-          subTitle=" uiui aiai"
-          href="/"
+          title="Iphone 15"
+          subTitle="Qualidade e elegância em um só lugar"
+          href="/products/12"
           linkContent="Comprar"
         >
-          <Image src='/iphone14-image.jpeg' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
+          <Image src='/iphone14-image.jpeg' alt='Smartphone Apple Iphone 13' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
         </ProductBannerWide>
 
       </div>
       <div className="p-2 gap-2 flex flex-wrap justify-center md:flex-nowrap">
         <ProductBanner
-          color="white"
-          textColor='black'
-          title="Iphone 13"
-          subTitle=" uiui aiai"
-          href="/"
+          color="black"
+          textColor='white'
+          title="Iphone 14"
+          subTitle="Em até 12x de R$492,99"
+          href="/products/11"
           linkContent="Comprar"
         >
-          <Image src='/galaxyfold-image.png' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
+          <Image src='/iphone-banner-side.png' alt='Smartphone Iphone 14 Image' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
         </ProductBanner>
 
         <ProductBanner
           color="white"
           textColor='black'
-          title="Iphone 13"
-          subTitle=" uiui aiai"
-          href="/"
+          title="Samsung S22"
+          subTitle=""
+          href="/products/17"
           linkContent="Comprar"
         >
-          <Image src='/galaxyfold-image.png' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
+          <Image src='/samsung-banner.png' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
 
         </ProductBanner>
 
         <ProductBanner
           color="white"
           textColor='black'
-          title="Iphone 13"
-          subTitle=" uiui aiai"
-          href="/"
+          title="Samsung S23"
+          subTitle="Em até 12x de R$325,99 ou R$3899.99 á vista"
+          href="/products/20"
           linkContent="Comprar"
         >
-          <Image src='/galaxyfold-image.png' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
+          <Image src='/samsung-s23-banner.png' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
         </ProductBanner>
       </div>
 

@@ -72,7 +72,7 @@ export default function CartItem({
                 h-full p-1">
                     {product?.images &&
                         <Image
-                            src={product.images[0]}
+                            src={product.images[0] + '.jpg'}
                             alt={"Imagem do produto" + product.title}
                             width={100}
                             height={50}
