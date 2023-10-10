@@ -1,16 +1,23 @@
+'use client';
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function useLocalStorage(key: string){
-    const eventListener = window.addEventListener('storage', updateData);
+    var storage: Storage | undefined;
+    
+    if(typeof window !== "undefined"){
+        var eventListener = window.addEventListener('storage', updateData);
+        storage = window.localStorage;
+    }
+
     const path = usePathname();
 
-    const [data, setData] = useState<string[] | undefined>(JSON.parse(localStorage.getItem(key) || '[]'));
+    const [data, setData] = useState<string[] | undefined>(JSON.parse(storage?.getItem(key) || '[]'));
 
     const [changed, setChanged] = useState(0);
 
     function updateData(){
-        const localStorageData = localStorage.getItem(key);
+        const localStorageData = storage?.getItem(key);
 
         if(localStorageData){
             const newData = JSON.parse(localStorageData);
@@ -22,21 +29,21 @@ export default function useLocalStorage(key: string){
     }
     
     const remove = (item: string)=>{
-        const fetchedItem = localStorage.getItem(key);
+        const fetchedItem = storage?.getItem(key);
         
         //convert to array, filter/remove items and set it back to localStorage
         let parsedItem = JSON.parse(fetchedItem || '[]');
         
         parsedItem = parsedItem.filter((index: string) => index !== item);
         
-        localStorage.setItem(key, JSON.stringify(parsedItem));
+        storage?.setItem(key, JSON.stringify(parsedItem));
         window.dispatchEvent(new Event('storage'));
 
         setChanged(changed + 1);
     }
     
     const push = (item: string)=>{
-        const fetchedItem = localStorage.getItem(key);
+        const fetchedItem = storage?.getItem(key);
         
         if(fetchedItem){
             //convert to array, push item and set it back to localStorage
@@ -46,7 +53,7 @@ export default function useLocalStorage(key: string){
                 parsedItem.push(item);
             }
             
-            localStorage.setItem(key, JSON.stringify(parsedItem));
+            storage?.setItem(key, JSON.stringify(parsedItem));
             window.dispatchEvent(new Event('storage'));
         }
         
@@ -54,14 +61,14 @@ export default function useLocalStorage(key: string){
             //create array, push item to local storage
             const newItem = [item];
             
-            localStorage.setItem(key, JSON.stringify(newItem));
+            storage?.setItem(key, JSON.stringify(newItem));
         }
 
         setChanged(changed + 1);
     }
 
     const clear = ()=>{
-        localStorage.removeItem(key)
+        storage?.removeItem(key)
     }
     
     //update data on mount and on storage change

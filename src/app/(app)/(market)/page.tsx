@@ -55,7 +55,7 @@ export default function Home() {
           href="/products/17"
           linkContent="Comprar"
         >
-          <Image src='/samsung-banner.png' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
+          <Image src='/samsung-banner.png' alt='Smartphone Samsung S22 Image' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
 
         </ProductBanner>
 
@@ -67,7 +67,7 @@ export default function Home() {
           href="/products/20"
           linkContent="Comprar"
         >
-          <Image src='/samsung-s23-banner.png' alt='Smartphone galaxy fold' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
+          <Image src='/Samsung-s23-banner.png' alt='Smartphone Samsung S23 Image' width={1440} height={640} className="h-full object-cover overflow-hidden rounded-lg"/>
         </ProductBanner>
       </div>
 
