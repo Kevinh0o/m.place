@@ -12,11 +12,6 @@ type Props = {
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'm.Place',
-  description: 'description',
-}
-
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
