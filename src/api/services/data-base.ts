@@ -194,8 +194,8 @@ export class DataBase {
                         mode: 'insensitive',
                     },
                     price: {
-                        gt: parseInt(minPrice), //somehow it works just like this
-                        lt: parseInt(maxPrice)
+                        gt: parseFloat(minPrice.toString()),
+                        lt: parseFloat(maxPrice.toString())
                     },
                     brandId: {
                         contains: brand,
